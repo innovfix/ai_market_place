@@ -3,9 +3,9 @@ import { AIAgent } from "@/types/agent";
 export const agents: AIAgent[] = [
   {
     id: "code-gen-pro",
-    name: "CodeGen Pro",
+    name: "Salesforce Agentforce",
     description:
-      "Autonomous coding assistant for scaffolding features, writing tests, and refactoring with context awareness.",
+      "Salesforce's Agentforce helps you build and customize autonomous AI agents to help your business get more work done. This can be a Service Agent that helps to deflect cases and resolve customer inquiries accurately and conversationally, or it could be a Sales Agent that proactively nurtures leads by contacting customers, responding to their questions, and scheduling meetings. Agentforce Agents give your company the additional resources it needs to drive customer success.",
     provider: "OpenAI",
     model: "gpt-4o",
     version: "1.2.0",
@@ -13,7 +13,27 @@ export const agents: AIAgent[] = [
     rating: 4.7,
     downloads: 1542,
     lastUpdated: new Date().toISOString(),
-    imageUrl: "/agents/codegen.svg",
+    imageUrl: "/salesaiimg.png",
+    videoUrl: "https://www.youtube.com/watch?v=irdNqlytsLc",
+    screenshots: ["/salesaiimg.png"],
+    comments: [
+      {
+        id: "c1",
+        author: "ersonusaini",
+        content:
+          "Your app ux ui design not friendly and professional please quick update release when release main script current flutter code too much outdated I will recommend upgrading.",
+        createdAt: new Date().toISOString(),
+      },
+      {
+        id: "c2",
+        author: "Saeid05",
+        purchased: true,
+        content:
+          "I have stopped using your app because it is quite buggy. While you frequently update your website, your app does not receive the same attention.",
+        createdAt: new Date(Date.now() - 3*24*60*60*1000).toISOString(),
+        replies: 2,
+      },
+    ],
     docsUrl: "https://vercel.com/",
     repoUrl: "https://vercel.com/",
     tags: ["developer-tools", "typescript", "testing"],
@@ -25,25 +45,17 @@ export const agents: AIAgent[] = [
         "You are a senior software engineer AI focused on clarity, tests, and maintainability.",
     },
     seller: {
-      name: "Creative Waleed",
+      name: "Tecsxa",
       title: "Top notch eCommerce Development for Your Business",
       rating: 5.0,
       level: "Level 2",
-      location: "Pakistan",
+      location: "",
       memberSince: "Feb 2021",
       responseTime: "2 hours",
       lastDelivery: "1 day",
-      languages: ["French", "English", "German", "Italian"],
+      languages: ["English"],
       bio: "I provide reliable work at competitive prices.",
-      avatarUrl: "/agents/seller-waleed.png",
-      portfolio: [
-        { title: "Storefront UI", url: "https://vercel.com/" },
-        { title: "Admin Dashboard", url: "https://vercel.com/" },
-        { title: "Checkout Flow", url: "https://vercel.com/" },
-        { title: "Email Templates", url: "https://vercel.com/" },
-        { title: "Landing Page", url: "https://vercel.com/" },
-        { title: "Docs Site", url: "https://vercel.com/" },
-      ],
+      avatarUrl: "/profile1.jpeg",
     },
   },
   {

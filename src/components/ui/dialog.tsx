@@ -54,6 +54,10 @@ function DialogContent({
 }: React.ComponentProps<typeof DialogPrimitive.Content> & {
   showCloseButton?: boolean
 }) {
+  // Ensure accessibility requirement: DialogContent must have a DialogTitle
+  // If consumers pass aria-label, inject a visually-hidden title to satisfy Radix
+  const ariaLabel = (props as unknown as { [key: string]: string | undefined })["aria-label"]
+
   return (
     <DialogPortal data-slot="dialog-portal">
       <DialogOverlay />
@@ -65,6 +69,9 @@ function DialogContent({
         )}
         {...props}
       >
+        {ariaLabel ? (
+          <DialogPrimitive.Title className="sr-only">{ariaLabel}</DialogPrimitive.Title>
+        ) : null}
         {children}
         {showCloseButton && (
           <DialogPrimitive.Close

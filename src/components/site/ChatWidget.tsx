@@ -29,23 +29,25 @@ export function ChatWidget({
   const [message, setMessage] = useState("");
 
   return (
-    <div className="fixed left-4 bottom-4 z-50">
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        className="flex items-center gap-3 rounded-full border bg-background/90 px-4 py-2 shadow-md backdrop-blur"
-      >
-        <div className="relative h-9 w-9 overflow-hidden rounded-full bg-secondary">
-          {avatarUrl ? <Image src={avatarUrl} alt={name} fill className="object-cover" /> : null}
-        </div>
-        <div className="mr-1 text-left">
-          <div className="text-sm font-medium">Message {name}</div>
-          <div className="text-xs text-muted-foreground">{status} • {subtitle}</div>
-        </div>
-      </button>
+    <div className="fixed right-4 bottom-4 z-50">
+      {!open && (
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          className="flex items-center gap-3 rounded-full border bg-background/90 px-2 py-2 sm:px-4 shadow-md backdrop-blur"
+        >
+          <div className="relative h-9 w-9 overflow-hidden rounded-full bg-secondary">
+            {avatarUrl ? <Image src={avatarUrl} alt={name} fill className="object-cover" /> : null}
+          </div>
+          <div className="mr-1 text-left hidden sm:block">
+            <div className="text-sm font-medium">Message {name}</div>
+            <div className="text-xs text-muted-foreground">{status} • {subtitle}</div>
+          </div>
+        </button>
+      )}
 
       {open ? (
-        <div className="fixed left-4 bottom-20 w-[min(96vw,380px)] h-[70vh] rounded-[10px] border bg-background shadow-xl">
+        <div className="fixed right-4 bottom-20 w-[min(96vw,380px)] h-[70vh] rounded-[10px] border bg-background shadow-xl">
           <div className="flex items-center justify-between border-b px-4 py-3">
             <div className="flex items-center gap-3">
               <button className="rounded-full border p-1 sm:hidden" onClick={() => setOpen(false)}>

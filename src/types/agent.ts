@@ -32,6 +32,15 @@ export interface Seller {
   portfolio?: SellerPortfolioItem[];
 }
 
+export interface AgentComment {
+  id: string;
+  author: string;
+  purchased?: boolean;
+  content: string;
+  createdAt: string; // ISO date
+  replies?: number;
+}
+
 export interface AIAgent {
   id: string;
   name: string;
@@ -44,12 +53,15 @@ export interface AIAgent {
   downloads: number;
   lastUpdated: string; // ISO date
   imageUrl?: string;
+  videoUrl?: string;
+  screenshots?: string[];
   docsUrl: string;
   repoUrl?: string;
   tags: string[];
   capabilities: AgentCapability[];
   config: AgentConfig;
   seller?: Seller;
+  comments?: AgentComment[];
 }
 
 
