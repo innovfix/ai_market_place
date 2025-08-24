@@ -19,7 +19,7 @@ export function Header() {
           </Link>
           <nav className="hidden md:flex items-center gap-6 text-sm text-muted-foreground">
             <Link href="#agents" className="hover:text-foreground">Explore</Link>
-            <Link href="#sell" className="hover:text-foreground">Become a Seller</Link>
+            <Link href="/sell" className="hover:text-foreground">Become a Seller</Link>
           </nav>
         </div>
         <div className="flex items-center gap-2">
