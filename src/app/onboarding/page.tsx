@@ -117,7 +117,13 @@ export default function OnboardingPage() {
                   const f = e.target.files?.[0];
                   if (f) setPhotoFile(f);
                 }} />
-                <Button variant="outline" className="rounded-[10px]" onClick={() => document.getElementById("profile-photo")?.click()}>Upload photo</Button>
+                <Button 
+                  variant="outline" 
+                  className="rounded-[10px] border-blue-500/30 text-blue-200 hover:bg-blue-500/20 hover:border-blue-500/50 transition-all duration-300" 
+                  onClick={() => document.getElementById("profile-photo")?.click()}
+                >
+                  Upload photo
+                </Button>
                 <p className="mt-1 text-xs text-muted-foreground">JPG or PNG, recommended 400×400.</p>
                 {submitAttempted && errors.photoFile ? (<p className="mt-1 text-sm text-destructive">{errors.photoFile}</p>) : null}
               </div>
@@ -152,8 +158,19 @@ export default function OnboardingPage() {
                 <option>Fluent</option>
                 <option>Native/Bilingual</option>
               </select>
-              <Button variant="secondary" onClick={()=>{ setLangInput(""); setLevelInput(""); }}>Cancel</Button>
-              <Button onClick={()=>{ if(langInput && levelInput){ setLanguages([...languages, { lang: langInput, level: levelInput }]); setLangInput(""); setLevelInput(""); } }}>Add</Button>
+              <Button 
+                variant="secondary" 
+                className="bg-white/10 hover:bg-white/20 border-white/20 text-white backdrop-blur-sm hover:border-white/30 transition-all duration-300"
+                onClick={()=>{ setLangInput(""); setLevelInput(""); }}
+              >
+                Cancel
+              </Button>
+              <Button 
+                className="bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-700 hover:to-blue-700 border-0 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                onClick={()=>{ if(langInput && levelInput){ setLanguages([...languages, { lang: langInput, level: levelInput }]); setLangInput(""); setLevelInput(""); } }}
+              >
+                Add
+              </Button>
             </div>
             <div className={`mt-3 overflow-hidden rounded-[10px] border ${submitAttempted && errors.languages ? "border-destructive" : ""}`}>
               <div className="grid grid-cols-[1fr_200px] bg-secondary px-3 py-2 text-sm font-medium"><span>Language</span><span>Level</span></div>
@@ -165,7 +182,7 @@ export default function OnboardingPage() {
           </div>
           <div className="pt-2">
             <Button
-              className="btn-grad px-5"
+              className="px-5 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 border-0 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               onClick={() => {
                 setSubmitAttempted(true);
                 const next = validateAll();

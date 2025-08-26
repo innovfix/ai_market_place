@@ -101,7 +101,10 @@ export default function DashboardPage() {
                       <p className="text-sm text-amber-700 dark:text-amber-300">Stay compliant to continue working with EU clients</p>
                     </div>
                   </div>
-                  <Button size="sm" className="bg-gray-900 hover:bg-gray-800 text-white dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-200">
+                  <Button 
+                    size="sm" 
+                    className="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 border-0 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                  >
                     Verify
                   </Button>
                 </div>
@@ -133,7 +136,11 @@ export default function DashboardPage() {
             {/* Active Orders Section */}
             <div className="flex items-center justify-between">
               <h2 className="text-xl font-semibold">Active orders - 0 ($0)</h2>
-              <Button variant="outline" size="sm">
+              <Button 
+                variant="outline" 
+                size="sm"
+                className="border-blue-500/30 text-blue-200 hover:bg-blue-500/20 hover:border-blue-500/50 transition-all duration-300"
+              >
                 Active orders (0) <ChevronRight className="h-4 w-4 ml-1" />
               </Button>
             </div>
@@ -147,7 +154,9 @@ export default function DashboardPage() {
                   <p className="text-muted-foreground mb-4">
                     When you receive orders, they will appear here
                   </p>
-                  <Button>Create your first Agent</Button>
+                  <Button className="bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-700 hover:to-blue-700 border-0 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                    Create your first Agent
+                  </Button>
                 </div>
               </CardContent>
             </Card>

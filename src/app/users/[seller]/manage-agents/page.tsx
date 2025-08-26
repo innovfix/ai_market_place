@@ -1,12 +1,15 @@
+"use client";
+
 import { agents } from "@/data/agents";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
 import { SellerTopNav } from "@/components/site/SellerTopNav";
 import { notFound } from "next/navigation";
+import { use } from "react";
 
-export default async function ManageAgentsPage({ params }: { params: Promise<{ seller: string }> }) {
-  const { seller } = await params;
+export default function ManageAgentsPage({ params }: { params: Promise<{ seller: string }> }) {
+  const { seller } = use(params);
   const decoded = decodeURIComponent(seller);
   const list = agents.filter((a) => a.seller?.name.toLowerCase() === decoded.toLowerCase());
   if (list.length === 0) return notFound();

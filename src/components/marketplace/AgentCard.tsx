@@ -50,13 +50,23 @@ export function AgentCard({ agent, onView, href }: AgentCardProps) {
           <span className="text-muted-foreground">{agent.downloads.toLocaleString()} installs</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="text-sm font-medium">${agent.priceUSD}</div>
+          <div className="text-sm font-medium text-blue-100">${agent.priceUSD}</div>
           {href ? (
-            <Button size="sm" asChild>
+            <Button 
+              size="sm" 
+              asChild
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 border-0 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+            >
               <Link href={href}>View</Link>
             </Button>
           ) : (
-            <Button size="sm" onClick={() => onView?.(agent)}>View</Button>
+            <Button 
+              size="sm" 
+              onClick={() => onView?.(agent)}
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 border-0 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+            >
+              View
+            </Button>
           )}
         </div>
       </CardFooter>

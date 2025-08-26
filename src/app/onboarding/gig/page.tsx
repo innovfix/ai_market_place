@@ -2,7 +2,7 @@
 
 import { useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Bell, Mail, CircleHelp, ChevronDown, UserCircle } from "lucide-react";
+import { SellerTopNav } from "@/components/site/SellerTopNav";
 
 export default function CreateGigPage() {
   const [step, setStep] = useState(1);
@@ -76,26 +76,7 @@ export default function CreateGigPage() {
 
   return (
     <div>
-      {/* Top navigation bar */}
-      <div className="border-b bg-background">
-        <div className="container mx-auto flex h-14 items-center justify-between px-4">
-          <div className="flex items-center gap-6">
-            <div className="text-xl font-semibold">AI Market</div>
-            <nav className="hidden md:flex items-center gap-6 text-sm text-muted-foreground">
-              <a className="hover:text-foreground" href="#">Dashboard</a>
-              <a className="hover:text-foreground flex items-center gap-1" href="#">My Business <ChevronDown className="h-4 w-4" /></a>
-              <a className="hover:text-foreground flex items-center gap-1" href="#">Growth & Marketing <ChevronDown className="h-4 w-4" /></a>
-              <a className="hover:text-foreground flex items-center gap-1" href="#">Analytics <ChevronDown className="h-4 w-4" /></a>
-            </nav>
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="relative"><Bell className="h-5 w-5" /><span className="absolute -right-1 -top-1 h-2 w-2 rounded-full bg-pink-500" /></div>
-            <div className="relative"><Mail className="h-5 w-5" /><span className="absolute -right-1 -top-1 h-2 w-2 rounded-full bg-pink-500" /></div>
-            <CircleHelp className="h-5 w-5" />
-            <div className="relative"><UserCircle className="h-7 w-7" /><span className="absolute right-0 top-0 h-2 w-2 rounded-full bg-emerald-500" /></div>
-          </div>
-        </div>
-      </div>
+      <SellerTopNav seller="Tecsxa" />
 
       <div className="container mx-auto max-w-5xl px-4 py-8 md:py-10">
       {/* Steps header */}
@@ -185,7 +166,12 @@ export default function CreateGigPage() {
           </div>
 
           <div className="flex justify-end">
-            <Button className="btn-grad px-5" onClick={()=>{ setStep(2); setTimeout(()=> pricingRef.current?.scrollIntoView({ behavior: "smooth" }), 50); }}>Save & Continue</Button>
+            <Button 
+              className="px-5 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 border-0 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105" 
+              onClick={()=>{ setStep(2); setTimeout(()=> pricingRef.current?.scrollIntoView({ behavior: "smooth" }), 50); }}
+            >
+              Save & Continue
+            </Button>
           </div>
         </div>
         </>
@@ -207,7 +193,12 @@ export default function CreateGigPage() {
             />
           </div>
           <div className="flex justify-end">
-            <Button className="btn-grad px-5" onClick={()=> setStep(3)}>Continue</Button>
+            <Button 
+              className="px-5 bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-700 hover:to-blue-700 border-0 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105" 
+              onClick={()=> setStep(3)}
+            >
+              Continue
+            </Button>
           </div>
         </div>
       ) : null}
@@ -243,8 +234,19 @@ export default function CreateGigPage() {
                   className="h-24 w-full resize-none rounded-[10px] border bg-background p-3 text-sm"
                 />
                 <div className="flex items-center justify-end gap-2">
-                  <Button variant="secondary" onClick={()=> { setFaqQ(""); setFaqA(""); }}>Cancel</Button>
-                  <Button onClick={()=> { if (faqQ.trim() && faqA.trim()) { setFaqs([...faqs, { q: faqQ.trim(), a: faqA.trim() }]); setFaqQ(""); setFaqA(""); } }}>Add</Button>
+                  <Button 
+                    variant="secondary" 
+                    className="bg-white/10 hover:bg-white/20 border-white/20 text-white backdrop-blur-sm hover:border-white/30 transition-all duration-300"
+                    onClick={()=> { setFaqQ(""); setFaqA(""); }}
+                  >
+                    Cancel
+                  </Button>
+                  <Button 
+                    className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 border-0 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                    onClick={()=> { if (faqQ.trim() && faqA.trim()) { setFaqs([...faqs, { q: faqQ.trim(), a: faqA.trim() }]); setFaqQ(""); setFaqA(""); } }}
+                  >
+                    Add
+                  </Button>
                 </div>
               </div>
               {faqs.length > 0 ? (
@@ -261,7 +263,12 @@ export default function CreateGigPage() {
           </div>
 
           <div className="flex justify-end">
-            <Button className="btn-grad px-5" onClick={()=> setStep(4)}>Save & Continue</Button>
+            <Button 
+              className="px-5 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 border-0 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105" 
+              onClick={()=> setStep(4)}
+            >
+              Save & Continue
+            </Button>
           </div>
         </div>
       ) : null}

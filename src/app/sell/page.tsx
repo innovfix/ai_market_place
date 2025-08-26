@@ -16,8 +16,17 @@ export default function SellPage() {
           <h1 className="mb-3 text-3xl font-semibold tracking-tight md:text-5xl">Join the AI Seller Community</h1>
           <p className="text-muted-foreground">Launch your AI agent to thousands of buyers. Keep ownership, set pricing, and get paid.</p>
           <div className="mt-6 flex gap-3">
-            <Button className="btn-grad px-5" onClick={() => router.push("/onboarding")}>Get Started</Button>
-            <Button variant="secondary" asChild>
+            <Button 
+              className="px-5 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 border-0 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105" 
+              onClick={() => router.push("/onboarding")}
+            >
+              Get Started
+            </Button>
+            <Button 
+              variant="secondary" 
+              asChild
+              className="bg-white/10 hover:bg-white/20 border-white/20 text-white backdrop-blur-sm hover:border-white/30 transition-all duration-300"
+            >
               <a href="#sellers">See Top Sellers</a>
             </Button>
           </div>

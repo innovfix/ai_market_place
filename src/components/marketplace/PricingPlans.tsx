@@ -41,7 +41,9 @@ export function PricingPlans({ basePriceUSD = 129 }: PricingPlansProps) {
           ))}
         </ul>
 
-        <Button className="mt-5 w-full h-11 rounded-[10px]">Continue</Button>
+        <Button className="mt-5 w-full h-11 rounded-[10px] bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 border-0 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+          Continue
+        </Button>
       </div>
     </div>
   );
