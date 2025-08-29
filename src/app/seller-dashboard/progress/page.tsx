@@ -45,8 +45,8 @@ export default function SellerProgressPage() {
             <Card className="bg-gray-900 border-gray-700 p-6">
               <div className="text-center mb-6">
                 <Avatar className="w-24 h-24 mx-auto mb-4">
-                  <AvatarImage src="/profile1.jpeg" alt="Ashok Kumar" />
-                  <AvatarFallback className="bg-gray-700 text-white text-xl">AK</AvatarFallback>
+                  <AvatarImage src="/profile1.jpeg" alt="Tessa" />
+                  <AvatarFallback className="bg-gray-700 text-white text-xl">T</AvatarFallback>
                 </Avatar>
                 
                 {/* Level Progress Indicator */}

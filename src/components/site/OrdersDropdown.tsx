@@ -237,7 +237,7 @@ export function OrdersDropdown({ orderCount = 2 }: OrdersDropdownProps) {
               <button 
                 onClick={() => {
                   setIsOpen(false);
-                  router.push('/dashboard/settings');
+                  router.push('/seller-dashboard/account');
                 }}
                 className="p-1 hover:bg-gray-700 rounded transition-colors cursor-pointer"
                 title="Open settings"

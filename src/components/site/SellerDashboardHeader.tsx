@@ -26,7 +26,7 @@ interface SellerDashboardHeaderProps {
 }
 
 export function SellerDashboardHeader({ 
-  userName = "John Doe", 
+  userName = "Tessa", 
   userAvatar = "/profile1.jpeg",
   notificationCount = 1 
 }: SellerDashboardHeaderProps) {
@@ -332,7 +332,7 @@ export function SellerDashboardHeader({
                 <div className="flex flex-col space-y-1">
                   <p className="text-sm font-medium leading-none text-white">{userName}</p>
                   <p className="text-xs leading-none text-gray-400">
-                    john.doe@example.com
+                    Tessa@example.com
                   </p>
                 </div>
               </DropdownMenuLabel>
@@ -359,7 +359,7 @@ export function SellerDashboardHeader({
               </DropdownMenuItem>
               
               <DropdownMenuItem 
-                onClick={() => router.push('/dashboard/settings')}
+                onClick={() => router.push('/seller-dashboard/account')}
                 className="cursor-pointer text-gray-300 hover:bg-gray-800 hover:text-white focus:bg-gray-800 focus:text-white"
               >
                 Account settings

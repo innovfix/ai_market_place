@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState } from 'react';
 import { LoggedInHeader } from '@/components/site/LoggedInHeader';
@@ -56,11 +56,11 @@ const ProfilePreviewModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: ()
           {/* Profile Card */}
           <div className="mb-6 text-center">
             <Avatar className="w-24 h-24 mx-auto mb-4">
-              <AvatarImage src="/profile1.jpeg" alt="Ashok Kumar" />
-              <AvatarFallback className="bg-gray-700 text-white text-xl">AK</AvatarFallback>
+              <AvatarImage src="/profile1.jpeg" alt="Tessa" />
+              <AvatarFallback className="bg-gray-700 text-white text-xl">T</AvatarFallback>
             </Avatar>
-            <h2 className="text-xl font-bold text-white mb-1">Ashok Kumar</h2>
-            <p className="text-gray-400 mb-4">@akraja7</p>
+            <h2 className="text-xl font-bold text-white mb-1">Tessa</h2>
+            <p className="text-gray-400 mb-4">@Tessa7</p>
             
             <div className="space-y-2 text-left">
               <div className="flex items-center text-gray-300 text-sm">
@@ -122,11 +122,11 @@ export default function ProfilePage() {
             <Card className="bg-gray-900 border-gray-700 p-6 mb-6">
               <div className="text-center">
                 <Avatar className="w-32 h-32 mx-auto mb-4">
-                  <AvatarImage src="/profile1.jpeg" alt="Ashok Kumar" />
-                  <AvatarFallback className="bg-gray-700 text-white text-2xl">AK</AvatarFallback>
+                  <AvatarImage src="/profile1.jpeg" alt="Tessa" />
+                  <AvatarFallback className="bg-gray-700 text-white text-2xl">T</AvatarFallback>
                 </Avatar>
-                <h1 className="text-2xl font-bold text-white mb-2">Ashok Kumar</h1>
-                <p className="text-gray-400 mb-4">@akraja7</p>
+                <h1 className="text-2xl font-bold text-white mb-2">Tessa</h1>
+                <p className="text-gray-400 mb-4">@Tessa7</p>
                 
                 <div className="space-y-3 text-left">
                   <div className="flex items-center text-gray-300">

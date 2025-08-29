@@ -47,7 +47,7 @@ interface LoggedInHeaderProps {
 }
 
 export function LoggedInHeader({ 
-  userName = "John Doe", 
+  userName = "Tessa", 
   userAvatar = "/profile1.jpeg",
   notificationCount = 1 
 }: LoggedInHeaderProps) {
@@ -185,12 +185,12 @@ export function LoggedInHeader({
           </div>
 
           {/* Switch to Selling */}
-          <Link 
-            href="/dashboard/sell" 
+          <button
+            onClick={() => router.push('/seller-dashboard')}
             className="text-green-400 hover:text-green-300 transition-colors font-medium cursor-pointer"
           >
             Switch to Selling
-          </Link>
+          </button>
 
           {/* Profile Dropdown */}
           <DropdownMenu>
@@ -208,7 +208,7 @@ export function LoggedInHeader({
                 <div className="flex flex-col space-y-1">
                   <p className="text-sm font-medium leading-none text-white">{userName}</p>
                   <p className="text-xs leading-none text-gray-400">
-                    john.doe@example.com
+                    Tessa@example.com
                   </p>
                 </div>
               </DropdownMenuLabel>
@@ -219,16 +219,6 @@ export function LoggedInHeader({
               >
                 <User className="mr-2 h-4 w-4" />
                 <span>Profile</span>
-              </DropdownMenuItem>
-              
-              <DropdownMenuItem className="cursor-pointer text-gray-300 hover:bg-gray-800 hover:text-white focus:bg-gray-800 focus:text-white">
-                <FileText className="mr-2 h-4 w-4" />
-                <span>Post a project brief</span>
-              </DropdownMenuItem>
-              
-              <DropdownMenuItem className="cursor-pointer text-gray-300 hover:bg-gray-800 hover:text-white focus:bg-gray-800 focus:text-white">
-                <Package className="mr-2 h-4 w-4" />
-                <span>Your briefs</span>
               </DropdownMenuItem>
               
               <DropdownMenuItem 
@@ -247,7 +237,7 @@ export function LoggedInHeader({
               <DropdownMenuSeparator className="bg-gray-700" />
               
               <DropdownMenuItem 
-                onClick={() => router.push('/dashboard/settings')}
+                onClick={() => router.push('/seller-dashboard/account')}
                 className="cursor-pointer text-gray-300 hover:bg-gray-800 hover:text-white focus:bg-gray-800 focus:text-white"
               >
                 <Settings className="mr-2 h-4 w-4" />

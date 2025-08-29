@@ -35,11 +35,11 @@ export default function SellerDashboardPage() {
             <Card className="bg-gray-900 border-gray-700 p-6">
               <div className="text-center">
                 <Avatar className="w-20 h-20 mx-auto mb-4">
-                  <AvatarImage src="/profile1.jpeg" alt="Ashok Kumar" />
-                  <AvatarFallback className="bg-gray-700 text-white">AK</AvatarFallback>
+                  <AvatarImage src="/profile1.jpeg" alt="Tessa" />
+                  <AvatarFallback className="bg-gray-700 text-white">T</AvatarFallback>
                 </Avatar>
-                <h2 className="text-lg font-semibold text-white mb-1">Ashok Kumar</h2>
-                <p className="text-gray-400 text-sm mb-4">@akraja7</p>
+                <h2 className="text-lg font-semibold text-white mb-1">Tessa</h2>
+                <p className="text-gray-400 text-sm mb-4">@Tessa7</p>
                 
                 <Button 
                   onClick={() => window.location.href = '/dashboard/profile'}
@@ -146,7 +146,7 @@ export default function SellerDashboardPage() {
             <div className="bg-gray-900 border border-gray-700 rounded-lg p-6">
               <div className="flex justify-between items-start mb-4">
                 <div>
-                  <h1 className="text-2xl font-bold text-white mb-2">Welcome, Ashok Kumar</h1>
+                  <h1 className="text-2xl font-bold text-white mb-2">Welcome, Tessa</h1>
                   <p className="text-gray-400">Find important messages, tips, and links to helpful resources here:</p>
                 </div>
               </div>
