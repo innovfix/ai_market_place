@@ -1,23 +1,27 @@
 'use client';
 
+import React, { useState } from 'react';
 import { SellerDashboardHeader } from '@/components/site/SellerDashboardHeader';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { 
-  Star, 
-  MessageSquare, 
-  TrendingUp, 
+import {
+  Star,
+  MessageSquare,
+  TrendingUp,
   DollarSign,
   X,
   ChevronRight,
   Eye,
   MoreVertical,
-  ChevronDown
+  ChevronDown,
 } from 'lucide-react';
+import SetAvailabilityModal from '@/components/site/SetAvailabilityModal';
 
 export default function SellerDashboardPage() {
+  const [availabilityOpen, setAvailabilityOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-black">
       <SellerDashboardHeader />
@@ -90,9 +94,15 @@ export default function SellerDashboardPage() {
                 While unavailable, your Gigs are hidden and you will not receive new orders.
               </p>
               
-              <Button className="w-full bg-gray-800 hover:bg-gray-700 text-white border border-gray-600 cursor-pointer">
+              <Button 
+                onClick={() => setAvailabilityOpen(true)}
+                className="w-full bg-gray-800 hover:bg-gray-700 text-white border border-gray-600 cursor-pointer"
+              >
                 Set your availability
               </Button>
+              
+              {/* Set Availability Modal */}
+              <SetAvailabilityModal open={availabilityOpen} onOpenChange={setAvailabilityOpen} />
             </Card>
 
             {/* Earnings */}

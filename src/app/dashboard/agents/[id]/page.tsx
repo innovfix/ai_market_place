@@ -219,7 +219,7 @@ export default function DashboardAgentDetailsPage({ params }: { params: Promise<
                 </div>
                 <div className="flex justify-between p-3 rounded-lg bg-white/5 border border-white/10">
                   <span className="text-emerald-300">Last Updated</span>
-                  <span className="font-medium text-white">{new Date(agent.lastUpdated).toLocaleDateString()}</span>
+                  <span className="font-medium text-white">{new Date(agent.lastUpdated).toISOString().split('T')[0]}</span>
                 </div>
                 <div className="flex justify-between p-3 rounded-lg bg-white/5 border border-white/10">
                   <span className="text-emerald-300">Category</span>
