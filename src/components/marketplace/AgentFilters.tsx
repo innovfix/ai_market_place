@@ -1,10 +1,9 @@
 "use client";
 
-import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Search } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { SearchWithSuggestions } from "./SearchWithSuggestions";
 
 interface AgentFiltersProps {
   query: string;
@@ -26,23 +25,11 @@ export function AgentFilters({ query, setQuery, selectedTags, setSelectedTags, a
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="relative">
-        <Input
-          placeholder="Find an agent for: WhatsApp support, Auto Follow ups, Lead Scraping..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          className="h-14 text-base pl-5 pr-16 bg-white/5 border-white/20 text-white placeholder:text-white/60 focus:border-blue-500/50 focus:ring-blue-500/20"
-        />
-        <Button
-          type="button"
-          variant="secondary"
-          className="absolute right-1 top-1 bottom-1 h-auto px-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 border-0 text-white shadow-lg"
-          onClick={() => router.push(`/search?q=${encodeURIComponent(query)}`)}
-          aria-label="Search"
-        >
-          <Search className="h-5 w-5" />
-        </Button>
-      </div>
+      <SearchWithSuggestions
+        query={query}
+        setQuery={setQuery}
+        placeholder="Find an agent for: WhatsApp support, Auto Follow ups, Lead Scraping..."
+      />
 
       <div className="flex flex-wrap gap-3">
         {[

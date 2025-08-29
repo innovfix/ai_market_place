@@ -12,6 +12,8 @@ interface ChatWidgetProps {
   status?: string;
   subtitle?: string;
   quickPrompts?: string[];
+  isOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
 }
 
 export function ChatWidget({
@@ -24,9 +26,15 @@ export function ChatWidget({
     "Can you share pricing/licensing details?",
     "Do you support self-hosted models?",
   ],
+  isOpen = false,
+  onOpenChange,
 }: ChatWidgetProps) {
-  const [open, setOpen] = useState(false);
+  const [internalOpen, setInternalOpen] = useState(false);
   const [message, setMessage] = useState("");
+  
+  // Use external control if provided, otherwise use internal state
+  const open = onOpenChange ? isOpen : internalOpen;
+  const setOpen = onOpenChange ? onOpenChange : setInternalOpen;
 
   return (
     <div className="fixed right-4 bottom-4 z-50">

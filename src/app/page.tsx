@@ -39,10 +39,10 @@ export default function Home() {
             Vetted agents with open configs, transparent costs, and one-click deploys.
           </p>
           <div className="flex flex-wrap items-center gap-3">
-            <Button asChild className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 border-0 text-white shadow-lg">
+            <Button asChild className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 border-0 text-white shadow-lg cursor-pointer">
               <a href="#agents">Browse agents</a>
             </Button>
-            <Button asChild variant="secondary" className="bg-white/10 hover:bg-white/20 border-white/20 text-white backdrop-blur-sm">
+            <Button asChild variant="secondary" className="bg-white/10 hover:bg-white/20 border-white/20 text-white backdrop-blur-sm cursor-pointer">
               <a href="https://vercel.com/" target="_blank" rel="noreferrer">Start Deploying</a>
             </Button>
           </div>
@@ -78,7 +78,7 @@ export default function Home() {
               Ship AI products faster with a framework built to eliminate boilerplate code and
               standardize integrating model providers.
             </p>
-            <button className="mt-6 inline-flex h-10 w-10 items-center justify-center rounded-full border border-blue-500/30 text-blue-300 hover:text-blue-100 hover:border-blue-400/50 hover:bg-blue-500/10 transition-all duration-300">
+            <button className="mt-6 inline-flex h-10 w-10 items-center justify-center rounded-full border border-blue-500/30 text-blue-300 hover:text-blue-100 hover:border-blue-400/50 hover:bg-blue-500/10 transition-all duration-300 cursor-pointer">
               <ArrowRight className="h-5 w-5" />
             </button>
           </div>

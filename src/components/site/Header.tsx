@@ -39,11 +39,11 @@ export function Header() {
         </div>
         <div className="flex items-center gap-3">
           <Button 
-            asChild 
+            onClick={() => setJoinOpen(true)}
             variant="secondary" 
             className="bg-white/10 hover:bg-white/20 border-white/20 text-white backdrop-blur-sm hover:border-white/30 transition-all duration-300"
           >
-            <Link href="#signin">Sign in</Link>
+            Sign in
           </Button>
           <Button 
             onClick={() => setJoinOpen(true)}

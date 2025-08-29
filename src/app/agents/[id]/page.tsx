@@ -16,6 +16,7 @@ import { use } from "react";
 export default function AgentDetailsPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
   const agent = agents.find((a) => a.id === id);
+  
   if (!agent) return notFound();
 
   return (

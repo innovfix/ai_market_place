@@ -1,20 +1,18 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { useSearchParams } from "next/navigation";
 import { agents } from "@/data/agents";
-import { AgentCard } from "@/components/marketplace/AgentCard";
+import { DashboardAgentCard } from "@/components/marketplace/DashboardAgentCard";
 import { AgentDetailDialog } from "@/components/marketplace/AgentDetailDialog";
-import { AIAgent } from "@/types/agent";
 import { FilterDropdown } from "@/components/marketplace/FilterDropdown";
 import { SortDropdown } from "@/components/marketplace/SortDropdown";
 import { SEARCH_FILTERS } from "@/data/searchFilters";
+import { LoggedInHeader } from "@/components/site/LoggedInHeader";
+import { AIAgent } from "@/types/agent";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 
-export default function SearchPage() {
-  const params = useSearchParams();
-  const q = params.get("q") ?? "";
+export default function DashboardPage() {
   const [activeAgent, setActiveAgent] = useState<AIAgent | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   
@@ -31,16 +29,7 @@ export default function SearchPage() {
   const filtered = useMemo(() => {
     let result = agents;
     
-    // Filter by search query
-    const query = q.toLowerCase().trim();
-    if (query) {
-      result = result.filter((a) => 
-        [a.name, a.description, a.model, a.provider, ...a.tags]
-          .some((t) => t.toLowerCase().includes(query))
-      );
-    }
-    
-    // Apply additional filters
+    // Apply filters
     if (selectedCategory.length > 0) {
       result = result.filter((a) => 
         a.tags.some(tag => selectedCategory.some(cat => 
@@ -50,7 +39,6 @@ export default function SearchPage() {
     }
     
     if (selectedServiceOptions.length > 0) {
-      // Mock filtering - in real app, this would be based on agent properties
       result = result.filter((a) => 
         selectedServiceOptions.includes('ai-powered') ? true : 
         selectedServiceOptions.includes('api-access') ? a.capabilities.length > 0 :
@@ -88,7 +76,6 @@ export default function SearchPage() {
         break;
       case 'relevance':
       default:
-        // Default relevance sorting (by rating then downloads)
         result.sort((a, b) => {
           const scoreA = (a.rating || 0) * 0.7 + (a.downloads || 0) * 0.0001;
           const scoreB = (b.rating || 0) * 0.7 + (b.downloads || 0) * 0.0001;
@@ -98,7 +85,7 @@ export default function SearchPage() {
     }
     
     return result;
-  }, [q, selectedCategory, selectedServiceOptions, selectedSellerDetails, selectedBudget, selectedDeliveryTime, sortBy]);
+  }, [selectedCategory, selectedServiceOptions, selectedSellerDetails, selectedBudget, selectedDeliveryTime, sortBy]);
 
   const hasActiveFilters = selectedCategory.length > 0 || selectedServiceOptions.length > 0 || 
     selectedSellerDetails.length > 0 || selectedBudget.length > 0 || selectedDeliveryTime.length > 0;
@@ -112,70 +99,81 @@ export default function SearchPage() {
   };
 
   return (
-    <div className="container mx-auto max-w-6xl px-4 py-8 md:py-12">
-      <div className="mb-6">
-        <h1 className="text-2xl font-semibold tracking-tight">Results for <span className="text-primary">{q || "all agents"}</span></h1>
-      </div>
-      <div className="mb-6 flex flex-wrap items-center gap-3">
-        <FilterDropdown
-          label="Category"
-          options={SEARCH_FILTERS.category.options}
-          selectedValues={selectedCategory}
-          onSelectionChange={setSelectedCategory}
-        />
-        <FilterDropdown
-          label="Service options"
-          options={SEARCH_FILTERS.serviceOptions.options}
-          selectedValues={selectedServiceOptions}
-          onSelectionChange={setSelectedServiceOptions}
-        />
-        <FilterDropdown
-          label="Seller details"
-          options={SEARCH_FILTERS.sellerDetails.options}
-          selectedValues={selectedSellerDetails}
-          onSelectionChange={setSelectedSellerDetails}
-        />
-        <FilterDropdown
-          label="Budget"
-          options={SEARCH_FILTERS.budget.options}
-          selectedValues={selectedBudget}
-          onSelectionChange={setSelectedBudget}
-        />
-        <FilterDropdown
-          label="Delivery time"
-          options={SEARCH_FILTERS.deliveryTime.options}
-          selectedValues={selectedDeliveryTime}
-          onSelectionChange={setSelectedDeliveryTime}
-        />
-        {hasActiveFilters && (
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={clearAllFilters}
-            className="text-red-600 hover:text-red-700 hover:bg-red-50"
-          >
-            <X className="h-4 w-4 mr-1" />
-            Clear all filters
-          </Button>
-        )}
-        <div className="sm:ml-auto w-full sm:w-auto flex items-center justify-between sm:justify-end gap-4">
-          <div className="text-sm text-muted-foreground">
-            {filtered.length} result{filtered.length === 1 ? "" : "s"}
-          </div>
-          <SortDropdown
-            selectedSort={sortBy}
-            onSortChange={setSortBy}
-          />
+    <div className="min-h-screen bg-black">
+      <LoggedInHeader />
+      
+      <div className="container mx-auto max-w-6xl px-4 py-8 md:py-12">
+        <div className="mb-6">
+          <h1 className="text-3xl font-bold text-white mb-2">All Services</h1>
+          <p className="text-blue-200">Discover AI agents to automate your business</p>
         </div>
+        
+        <div className="mb-6 flex flex-wrap items-center gap-3">
+          <FilterDropdown
+            label="All Categories"
+            options={SEARCH_FILTERS.category.options}
+            selectedValues={selectedCategory}
+            onSelectionChange={setSelectedCategory}
+          />
+          <FilterDropdown
+            label="Service options"
+            options={SEARCH_FILTERS.serviceOptions.options}
+            selectedValues={selectedServiceOptions}
+            onSelectionChange={setSelectedServiceOptions}
+          />
+          <FilterDropdown
+            label="Seller details"
+            options={SEARCH_FILTERS.sellerDetails.options}
+            selectedValues={selectedSellerDetails}
+            onSelectionChange={setSelectedSellerDetails}
+          />
+          <FilterDropdown
+            label="Budget"
+            options={SEARCH_FILTERS.budget.options}
+            selectedValues={selectedBudget}
+            onSelectionChange={setSelectedBudget}
+          />
+          <FilterDropdown
+            label="Delivery time"
+            options={SEARCH_FILTERS.deliveryTime.options}
+            selectedValues={selectedDeliveryTime}
+            onSelectionChange={setSelectedDeliveryTime}
+          />
+          {hasActiveFilters && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={clearAllFilters}
+              className="text-red-400 hover:text-red-300 hover:bg-red-500/10 cursor-pointer"
+            >
+              <X className="h-4 w-4 mr-1" />
+              Clear all filters
+            </Button>
+          )}
+          <div className="sm:ml-auto w-full sm:w-auto flex items-center justify-between sm:justify-end gap-4">
+            <div className="text-sm text-blue-200">
+              {filtered.length} result{filtered.length === 1 ? "" : "s"}
+            </div>
+            <SortDropdown
+              selectedSort={sortBy}
+              onSortChange={setSortBy}
+            />
+          </div>
+        </div>
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filtered.map((agent) => (
+            <DashboardAgentCard 
+              key={agent.id} 
+              agent={agent} 
+              href={`/agents/${agent.id}`} 
+              onView={(a) => { setActiveAgent(a); setDialogOpen(true); }} 
+            />
+          ))}
+        </div>
+        
+        <AgentDetailDialog agent={activeAgent} open={dialogOpen} onOpenChange={setDialogOpen} />
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filtered.map((agent) => (
-          <AgentCard key={agent.id} agent={agent} href={`/agents/${agent.id}`} onView={(a) => { setActiveAgent(a); setDialogOpen(true); }} />
-        ))}
-      </div>
-      <AgentDetailDialog agent={activeAgent} open={dialogOpen} onOpenChange={setDialogOpen} />
     </div>
   );
 }
-
-

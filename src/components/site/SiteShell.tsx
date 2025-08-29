@@ -5,7 +5,7 @@ import { Header } from "./Header";
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const hideHeader = pathname.startsWith("/onboarding") || pathname.startsWith("/users/");
+  const hideHeader = pathname.startsWith("/onboarding") || pathname.startsWith("/users/") || pathname.startsWith("/dashboard") || pathname.startsWith("/seller-dashboard");
 
   return (
     <>

@@ -16,7 +16,7 @@ interface AgentCardProps {
 
 export function AgentCard({ agent, onView, href }: AgentCardProps) {
   return (
-    <Card className="hover:shadow-md transition-shadow">
+    <Card className="hover:shadow-md transition-shadow cursor-pointer">
       <CardHeader className="p-0">
         <div className="relative w-full aspect-[16/9] overflow-hidden rounded-t-md bg-secondary">
           {agent.imageUrl ? (

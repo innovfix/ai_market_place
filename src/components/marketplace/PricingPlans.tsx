@@ -5,9 +5,10 @@ import { Button } from "@/components/ui/button";
 
 interface PricingPlansProps {
   basePriceUSD?: number;
+  onOrderClick?: () => void;
 }
 
-export function PricingPlans({ basePriceUSD = 129 }: PricingPlansProps) {
+export function PricingPlans({ basePriceUSD = 129, onOrderClick }: PricingPlansProps) {
   const price = Math.round(basePriceUSD);
   const items: { label: string; included: boolean }[] = [
     { label: "3-day delivery", included: true },
@@ -41,7 +42,10 @@ export function PricingPlans({ basePriceUSD = 129 }: PricingPlansProps) {
           ))}
         </ul>
 
-        <Button className="mt-5 w-full h-11 rounded-[10px] bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 border-0 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+        <Button 
+          onClick={onOrderClick}
+          className="mt-5 w-full h-11 rounded-[10px] bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 border-0 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+        >
           Continue
         </Button>
       </div>
