@@ -14,7 +14,6 @@ import {
   ChevronDown, 
   Search,
   User,
-  Settings,
   LogOut,
   CreditCard,
   Package,
@@ -39,6 +38,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Separator } from "@/components/ui/separator";
+import { Input } from "@/components/ui/input";
 
 interface LoggedInHeaderProps {
   userName?: string;
@@ -53,6 +55,16 @@ export function LoggedInHeader({
 }: LoggedInHeaderProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [helpDropdownOpen, setHelpDropdownOpen] = useState(false);
+  const [languageOpen, setLanguageOpen] = useState(false);
+  const [currencyOpen, setCurrencyOpen] = useState(false);
+  const [language, setLanguage] = useState<string>("English");
+  const [currency, setCurrency] = useState<{ code: string; symbol: string }>({ code: "INR", symbol: "₹" });
+  const languages = ["English", "हिन्दी (Hindi)", "Español (Spanish)", "Français (French)"];
+  const currencies = [
+    { code: "INR", symbol: "₹", name: "Indian Rupee" },
+    { code: "USD", symbol: "$", name: "US Dollar" },
+    { code: "EUR", symbol: "€", name: "Euro" },
+  ];
   const router = useRouter();
   const helpRef = useRef<HTMLDivElement>(null);
 
@@ -147,7 +159,7 @@ export function LoggedInHeader({
                     }}
                     className="w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer"
                   >
-                    Fiverr Forum
+                    AI Market Forum
                   </button>
                   <button 
                     onClick={() => {
@@ -156,7 +168,7 @@ export function LoggedInHeader({
                     }}
                     className="w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer"
                   >
-                    Fiverr Blog
+                    AI Market Blog
                   </button>
                   
                   <div className="border-t border-gray-700 my-2"></div>
@@ -236,14 +248,6 @@ export function LoggedInHeader({
               
               <DropdownMenuSeparator className="bg-gray-700" />
               
-              <DropdownMenuItem 
-                onClick={() => router.push('/seller-dashboard/account')}
-                className="cursor-pointer text-gray-300 hover:bg-gray-800 hover:text-white focus:bg-gray-800 focus:text-white"
-              >
-                <Settings className="mr-2 h-4 w-4" />
-                <span>Account settings</span>
-              </DropdownMenuItem>
-              
               <DropdownMenuItem className="cursor-pointer text-gray-300 hover:bg-gray-800 hover:text-white focus:bg-gray-800 focus:text-white">
                 <CreditCard className="mr-2 h-4 w-4" />
                 <span>Billing and payments</span>
@@ -257,7 +261,7 @@ export function LoggedInHeader({
                     <Crown className="mr-2 h-4 w-4" />
                     <span>Exclusive features</span>
                   </div>
-                  <span className="text-xs bg-purple-600 text-white px-2 py-1 rounded-full">Fiverr Pro</span>
+                  <span className="text-xs bg-purple-600 text-white px-2 py-1 rounded-full">AI Market Pro</span>
                 </div>
               </DropdownMenuItem>
               
@@ -278,22 +282,23 @@ export function LoggedInHeader({
               
               <DropdownMenuSeparator className="bg-gray-700" />
               
-              <DropdownMenuItem className="cursor-pointer text-gray-300 hover:bg-gray-800 hover:text-white focus:bg-gray-800 focus:text-white">
+              <DropdownMenuItem onClick={() => setLanguageOpen(true)} className="cursor-pointer text-gray-300 hover:bg-gray-800 hover:text-white focus:bg-gray-800 focus:text-white">
                 <div className="flex items-center justify-between w-full">
                   <div className="flex items-center">
                     <Globe className="mr-2 h-4 w-4" />
-                    <span>English</span>
+                    <span>{language}</span>
                   </div>
-                  <Globe className="h-4 w-4" />
+                  <span className="text-xs text-gray-500">Change</span>
                 </div>
               </DropdownMenuItem>
               
-              <DropdownMenuItem className="cursor-pointer text-gray-300 hover:bg-gray-800 hover:text-white focus:bg-gray-800 focus:text-white">
+              <DropdownMenuItem onClick={() => setCurrencyOpen(true)} className="cursor-pointer text-gray-300 hover:bg-gray-800 hover:text-white focus:bg-gray-800 focus:text-white">
                 <div className="flex items-center justify-between w-full">
                   <div className="flex items-center">
                     <DollarSign className="mr-2 h-4 w-4" />
-                    <span>₹ INR</span>
+                    <span>{currency.symbol} {currency.code}</span>
                   </div>
+                  <span className="text-xs text-gray-500">Change</span>
                 </div>
               </DropdownMenuItem>
               
@@ -310,6 +315,61 @@ export function LoggedInHeader({
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+
+          {/* Language Dialog */}
+          <Dialog open={languageOpen} onOpenChange={setLanguageOpen}>
+            <DialogContent className="bg-black border border-gray-700" aria-label="Language settings">
+              <DialogHeader>
+                <DialogTitle className="text-white">Choose your language</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-3">
+                {languages.map((lang) => (
+                  <label key={lang} className="flex items-center gap-3 text-sm text-gray-300 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="language"
+                      checked={language === lang}
+                      onChange={() => setLanguage(lang)}
+                      className="accent-blue-500"
+                    />
+                    {lang}
+                  </label>
+                ))}
+              </div>
+              <DialogFooter>
+                <Button onClick={() => setLanguageOpen(false)} className="bg-white text-black hover:bg-gray-100 cursor-pointer">Save</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+
+          {/* Currency Dialog */}
+          <Dialog open={currencyOpen} onOpenChange={setCurrencyOpen}>
+            <DialogContent className="bg-black border border-gray-700" aria-label="Currency settings">
+              <DialogHeader>
+                <DialogTitle className="text-white">Choose your currency</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-3">
+                {currencies.map((c) => (
+                  <label key={c.code} className="flex items-center justify-between text-sm text-gray-300 cursor-pointer">
+                    <div className="flex items-center gap-3">
+                      <input
+                        type="radio"
+                        name="currency"
+                        checked={currency.code === c.code}
+                        onChange={() => setCurrency({ code: c.code, symbol: c.symbol })}
+                        className="accent-blue-500"
+                      />
+                      <span className="font-medium">{c.symbol} {c.code}</span>
+                    </div>
+                    <span className="text-gray-500">{c.name}</span>
+                  </label>
+                ))}
+              </div>
+              <DialogFooter>
+                <Button onClick={() => setCurrencyOpen(false)} className="bg-white text-black hover:bg-gray-100 cursor-pointer">Save</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
     </header>

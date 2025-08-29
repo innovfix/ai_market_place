@@ -199,10 +199,7 @@ export function NotificationDropdown({ notificationCount = 2 }: NotificationDrop
                 )}
               </button>
               <button 
-                onClick={() => {
-                  setIsOpen(false);
-                  router.push('/seller-dashboard/account');
-                }}
+                onClick={() => router.push('/seller-dashboard/account/notifications')}
                 className="p-1 hover:bg-gray-700 rounded transition-colors cursor-pointer"
                 title="Open settings"
               >

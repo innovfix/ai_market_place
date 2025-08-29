@@ -5,8 +5,12 @@ import { NotificationDropdown } from "@/components/site/NotificationDropdown";
 import { MessageDropdown } from "@/components/site/MessageDropdown";
 import { 
   ChevronDown, 
-  HelpCircle
+  HelpCircle,
+  Globe,
+  DollarSign
 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import {
@@ -31,6 +35,16 @@ export function SellerDashboardHeader({
   notificationCount = 1 
 }: SellerDashboardHeaderProps) {
   const [helpDropdownOpen, setHelpDropdownOpen] = useState(false);
+  const [languageOpen, setLanguageOpen] = useState(false);
+  const [currencyOpen, setCurrencyOpen] = useState(false);
+  const [language, setLanguage] = useState<string>("English");
+  const [currency, setCurrency] = useState<{ code: string; symbol: string }>({ code: "INR", symbol: "₹" });
+  const languages = ["English", "हिन्दी (Hindi)", "Español (Spanish)", "Français (French)"];
+  const currencies = [
+    { code: "INR", symbol: "₹", name: "Indian Rupee" },
+    { code: "USD", symbol: "$", name: "US Dollar" },
+    { code: "EUR", symbol: "€", name: "Euro" },
+  ];
   const [businessDropdownOpen, setBusinessDropdownOpen] = useState(false);
   const [marketingDropdownOpen, setMarketingDropdownOpen] = useState(false);
   const [analyticsDropdownOpen, setAnalyticsDropdownOpen] = useState(false);
@@ -86,7 +100,7 @@ export function SellerDashboardHeader({
           {/* Navigation Menu */}
           <nav className="flex items-center gap-6">
             {/* Dashboard */}
-            <span className="text-white font-medium">Dashboard</span>
+            <Link href="/seller-dashboard" className="text-white font-medium hover:text-blue-200 transition-colors cursor-pointer">Dashboard</Link>
             
             {/* My Business */}
             <div className="relative" ref={businessRef}>
@@ -279,7 +293,7 @@ export function SellerDashboardHeader({
                     }}
                     className="w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer"
                   >
-                    Fiverr Forum
+                    AI Market Forum
                   </button>
                   <button 
                     onClick={() => {
@@ -288,7 +302,7 @@ export function SellerDashboardHeader({
                     }}
                     className="w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer"
                   >
-                    Fiverr Blog
+                    AI Market Blog
                   </button>
                   
                   <div className="border-t border-gray-700 my-2"></div>
@@ -354,15 +368,15 @@ export function SellerDashboardHeader({
                 Profile
               </DropdownMenuItem>
               
-              <DropdownMenuItem className="cursor-pointer text-green-400 hover:bg-gray-800 hover:text-green-300 focus:bg-gray-800 focus:text-green-300">
-                Refer a friend
-              </DropdownMenuItem>
-              
               <DropdownMenuItem 
                 onClick={() => router.push('/seller-dashboard/account')}
                 className="cursor-pointer text-gray-300 hover:bg-gray-800 hover:text-white focus:bg-gray-800 focus:text-white"
               >
                 Account settings
+              </DropdownMenuItem>
+              
+              <DropdownMenuItem className="cursor-pointer text-green-400 hover:bg-gray-800 hover:text-green-300 focus:bg-gray-800 focus:text-green-300">
+                Refer a friend
               </DropdownMenuItem>
               
               <DropdownMenuItem className="cursor-pointer text-gray-300 hover:bg-gray-800 hover:text-white focus:bg-gray-800 focus:text-white">
@@ -371,12 +385,24 @@ export function SellerDashboardHeader({
               
               <DropdownMenuSeparator className="bg-gray-700" />
               
-              <DropdownMenuItem className="cursor-pointer text-gray-300 hover:bg-gray-800 hover:text-white focus:bg-gray-800 focus:text-white">
-                English
+              <DropdownMenuItem onClick={() => setLanguageOpen(true)} className="cursor-pointer text-gray-300 hover:bg-gray-800 hover:text-white focus:bg-gray-800 focus:text-white">
+                <div className="flex items-center justify-between w-full">
+                  <div className="flex items-center">
+                    <Globe className="mr-2 h-4 w-4" />
+                    <span>{language}</span>
+                  </div>
+                  <span className="text-xs text-gray-500">Change</span>
+                </div>
               </DropdownMenuItem>
               
-              <DropdownMenuItem className="cursor-pointer text-gray-300 hover:bg-gray-800 hover:text-white focus:bg-gray-800 focus:text-white">
-                ₹ INR
+              <DropdownMenuItem onClick={() => setCurrencyOpen(true)} className="cursor-pointer text-gray-300 hover:bg-gray-800 hover:text-white focus:bg-gray-800 focus:text-white">
+                <div className="flex items-center justify-between w-full">
+                  <div className="flex items-center">
+                    <DollarSign className="mr-2 h-4 w-4" />
+                    <span>{currency.symbol} {currency.code}</span>
+                  </div>
+                  <span className="text-xs text-gray-500">Change</span>
+                </div>
               </DropdownMenuItem>
               
               <DropdownMenuSeparator className="bg-gray-700" />
@@ -389,6 +415,61 @@ export function SellerDashboardHeader({
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+
+          {/* Language Dialog */}
+          <Dialog open={languageOpen} onOpenChange={setLanguageOpen}>
+            <DialogContent className="bg-black border border-gray-700" aria-label="Language settings">
+              <DialogHeader>
+                <DialogTitle className="text-white">Choose your language</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-3">
+                {languages.map((lang) => (
+                  <label key={lang} className="flex items-center gap-3 text-sm text-gray-300 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="seller_language"
+                      checked={language === lang}
+                      onChange={() => setLanguage(lang)}
+                      className="accent-blue-500"
+                    />
+                    {lang}
+                  </label>
+                ))}
+              </div>
+              <DialogFooter>
+                <Button onClick={() => setLanguageOpen(false)} className="bg-white text-black hover:bg-gray-100 cursor-pointer">Save</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+
+          {/* Currency Dialog */}
+          <Dialog open={currencyOpen} onOpenChange={setCurrencyOpen}>
+            <DialogContent className="bg-black border border-gray-700" aria-label="Currency settings">
+              <DialogHeader>
+                <DialogTitle className="text-white">Choose your currency</DialogTitle>
+              </DialogHeader>
+              <div className="space-y-3">
+                {currencies.map((c) => (
+                  <label key={c.code} className="flex items-center justify-between text-sm text-gray-300 cursor-pointer">
+                    <div className="flex items-center gap-3">
+                      <input
+                        type="radio"
+                        name="seller_currency"
+                        checked={currency.code === c.code}
+                        onChange={() => setCurrency({ code: c.code, symbol: c.symbol })}
+                        className="accent-blue-500"
+                      />
+                      <span className="font-medium">{c.symbol} {c.code}</span>
+                    </div>
+                    <span className="text-gray-500">{c.name}</span>
+                  </label>
+                ))}
+              </div>
+              <DialogFooter>
+                <Button onClick={() => setCurrencyOpen(false)} className="bg-white text-black hover:bg-gray-100 cursor-pointer">Save</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
     </header>

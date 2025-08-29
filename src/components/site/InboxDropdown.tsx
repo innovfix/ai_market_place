@@ -75,7 +75,9 @@ export function InboxDropdown() {
         <div className="flex items-center justify-between border-t p-2 text-sm">
           <div className="flex items-center gap-3 px-1">
             <Volume2 className="h-4 w-4" />
-            <Settings className="h-4 w-4" />
+            <Link href="/seller-dashboard/account/notifications" className="inline-flex">
+              <Settings className="h-4 w-4" />
+            </Link>
           </div>
           <Link href={`/users/${seller}/messages`} className="px-2 text-primary hover:underline">See All in Inbox</Link>
         </div>

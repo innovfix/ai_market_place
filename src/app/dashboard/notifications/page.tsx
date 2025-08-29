@@ -4,6 +4,7 @@ import { LoggedInHeader } from "@/components/site/LoggedInHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Bell, Mail, Settings, Volume2 } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useRouter } from "next/navigation";
 
 interface Notification {
   id: string;
@@ -15,6 +16,7 @@ interface Notification {
 }
 
 export default function NotificationsPage() {
+  const router = useRouter();
   const notifications: Notification[] = [
     {
       id: "1",
@@ -46,7 +48,7 @@ export default function NotificationsPage() {
               Notifications ({notifications.length})
             </h1>
           </div>
-          <button className="p-2 hover:bg-gray-800 rounded-lg transition-colors cursor-pointer">
+          <button onClick={() => router.push('/seller-dashboard/account/notifications')} className="p-2 hover:bg-gray-800 rounded-lg transition-colors cursor-pointer">
             <Settings className="h-5 w-5 text-gray-400" />
           </button>
         </div>
@@ -105,7 +107,7 @@ export default function NotificationsPage() {
             <button className="p-2 hover:bg-gray-800 rounded-lg transition-colors cursor-pointer">
               <Volume2 className="h-5 w-5 text-gray-400" />
             </button>
-            <button className="p-2 hover:bg-gray-800 rounded-lg transition-colors cursor-pointer">
+            <button onClick={() => router.push('/seller-dashboard/account/notifications')} className="p-2 hover:bg-gray-800 rounded-lg transition-colors cursor-pointer">
               <Settings className="h-5 w-5 text-gray-400" />
             </button>
           </div>

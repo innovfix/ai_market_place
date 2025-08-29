@@ -329,7 +329,7 @@ export default function DashboardCheckoutPage() {
                 </div>
                 <div>
                   <h4 className="font-medium text-sm">We've got your back</h4>
-                  <p className="text-xs text-gray-400 mt-1">Your payment will be held by Fiverr until your order is completed.</p>
+                  <p className="text-xs text-gray-400 mt-1">Your payment will be held by AI Market until your order is completed.</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -353,7 +353,7 @@ export default function DashboardCheckoutPage() {
             </div>
 
             <p className="text-xs text-gray-400">
-              Payments are processed by Fiverr International Ltd., Fiverr Limited, and Fiverr Inc. See{" "}
+              Payments are processed by AI Market. See{" "}
               <button className="text-blue-400 hover:text-blue-300 cursor-pointer">Payment Terms</button>.
             </p>
           </div>
@@ -397,7 +397,7 @@ export default function DashboardCheckoutPage() {
 
                     {/* Features */}
                     <div className="space-y-2">
-                      {orderData.features.map((feature, index) => (
+                      {orderData.features.map((feature: string, index: number) => (
                         <div key={index} className="flex items-center gap-2 text-sm">
                           <div className="w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
                             <div className="w-2 h-2 bg-white rounded-full"></div>
@@ -440,7 +440,7 @@ export default function DashboardCheckoutPage() {
 
                   {/* Terms */}
                   <p className="text-xs text-gray-400 leading-relaxed">
-                    By clicking the button, you agree to Fiverr's{" "}
+                    By clicking the button, you agree to AI Market's{" "}
                     <button className="text-blue-400 hover:text-blue-300 cursor-pointer">Terms of Service</button>{" "}
                     and{" "}
                     <button className="text-blue-400 hover:text-blue-300 cursor-pointer">Payment Terms</button>

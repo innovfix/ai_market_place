@@ -182,7 +182,7 @@ export default function ProfilePage() {
                 <h2 className="text-2xl font-bold text-white">Let's help freelancers get to know you</h2>
               </div>
               <p className="text-gray-400">
-                Get the most out of Fiverr by sharing a bit more about yourself and how you prefer to work with freelancers.
+                Get the most out of AI Market by sharing a bit more about yourself and how you prefer to work with freelancers.
               </p>
             </div>
 
@@ -205,7 +205,9 @@ export default function ProfilePage() {
                     <Target className="w-5 h-5 text-gray-400" />
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-medium text-white">Share how you plan to use Fiverr</h4>
+                    <h4 className="font-medium text-white">Share how you plan to use 
+                      AI Market
+                    </h4>
                     <p className="text-gray-400 text-sm">Tell us if you're here to find services or offer them.</p>
                   </div>
                   <div className="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center">

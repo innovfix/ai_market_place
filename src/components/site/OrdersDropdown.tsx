@@ -237,10 +237,10 @@ export function OrdersDropdown({ orderCount = 2 }: OrdersDropdownProps) {
               <button 
                 onClick={() => {
                   setIsOpen(false);
-                  router.push('/seller-dashboard/account');
+                  router.push('/seller-dashboard/account/notifications');
                 }}
                 className="p-1 hover:bg-gray-700 rounded transition-colors cursor-pointer"
-                title="Open settings"
+                title="Open notification settings"
               >
                 <Settings className="h-4 w-4 text-gray-400" />
               </button>

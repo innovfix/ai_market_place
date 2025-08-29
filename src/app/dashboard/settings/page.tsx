@@ -1,4 +1,4 @@
-"use client";
+http://localhost:3001/seller-dashboard/account"use client";
 
 import { useState, useEffect } from "react";
 import { LoggedInHeader } from "@/components/site/LoggedInHeader";
@@ -264,11 +264,6 @@ export default function SettingsPage() {
                     <Button
                       onClick={saveSettings}
                       disabled={!hasUnsavedChanges}
-                      className={`px-6 py-2 rounded-lg font-medium cursor-pointer transition-all ${
-                        hasUnsavedChanges
-                          ? "bg-green-600 hover:bg-green-700 text-white"
-                          : "bg-gray-700 text-gray-400 cursor-not-allowed"
-                      }`}
                     >
                       Save Changes
                     </Button>
