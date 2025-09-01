@@ -257,20 +257,7 @@ export function LoggedInHeader({
               
               
               
-              <DropdownMenuItem className="cursor-pointer text-gray-300 hover:bg-gray-800 hover:text-white focus:bg-gray-800 focus:text-white">
-                <Users className="mr-2 h-4 w-4" />
-                <span>Invite your team</span>
-              </DropdownMenuItem>
               
-              <DropdownMenuItem className="cursor-pointer text-gray-300 hover:bg-gray-800 hover:text-white focus:bg-gray-800 focus:text-white">
-                <Shield className="mr-2 h-4 w-4" />
-                <span>Let us handle your big projects</span>
-              </DropdownMenuItem>
-              
-              <DropdownMenuItem className="cursor-pointer text-gray-300 hover:bg-gray-800 hover:text-white focus:bg-gray-800 focus:text-white">
-                <DollarSign className="mr-2 h-4 w-4" />
-                <span>Money-back guarantee</span>
-              </DropdownMenuItem>
               
               <DropdownMenuSeparator className="bg-gray-700" />
               

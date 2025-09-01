@@ -16,11 +16,15 @@ import {
   Eye,
   MoreVertical,
   ChevronDown,
+  Share2,
+  Square,
 } from 'lucide-react';
 import SetAvailabilityModal from '@/components/site/SetAvailabilityModal';
+// ...existing imports...
 
 export default function SellerDashboardPage() {
   const [availabilityOpen, setAvailabilityOpen] = useState(false);
+  // profile dialog removed — navigation restored
 
   return (
     <div className="min-h-screen bg-black">
@@ -42,7 +46,7 @@ export default function SellerDashboardPage() {
                 <p className="text-gray-400 text-sm mb-4">@Tessa7</p>
                 
                 <Button 
-                  onClick={() => window.location.href = '/dashboard/profile'}
+                  onClick={() => window.location.href = '/seller-dashboard/profile'}
                   className="w-full bg-gray-800 hover:bg-gray-700 text-white border border-gray-600 cursor-pointer"
                 >
                   View profile
@@ -210,6 +214,8 @@ export default function SellerDashboardPage() {
           </div>
         </div>
       </div>
+
+  {/* profile dialog removed */}
     </div>
   );
 }
