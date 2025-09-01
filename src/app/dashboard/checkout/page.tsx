@@ -462,7 +462,7 @@ export default function DashboardCheckoutPage() {
                     </>
                   ) : (
                     <>
-                      <Button className="w-full h-12 bg-white text-black hover:bg-gray-100 font-medium rounded-lg">
+                      <Button className="w-full h-12 font-medium rounded-lg">
                         Confirm & Pay
                       </Button>
                       <p className="text-xs text-gray-400 text-center">

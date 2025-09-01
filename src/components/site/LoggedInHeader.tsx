@@ -103,8 +103,8 @@ export function LoggedInHeader({
           </Link>
         </div>
 
-        {/* Center - Search */}
-        <div className="flex-1 max-w-2xl mx-8">
+  {/* Center - Search */}
+  <div className="flex-1 max-w-2xl mx-8">
           <HeaderSearchWithSuggestions
             query={searchQuery}
             setQuery={setSearchQuery}
@@ -112,8 +112,8 @@ export function LoggedInHeader({
           />
         </div>
 
-        {/* Right side - Navigation */}
-        <div className="flex items-center gap-3">
+  {/* Right side - Navigation */}
+  <div className="flex items-center gap-3">
           {/* Notifications */}
           <NotificationDropdown notificationCount={notificationCount} />
 
@@ -248,7 +248,7 @@ export function LoggedInHeader({
               
               <DropdownMenuSeparator className="bg-gray-700" />
               
-              <DropdownMenuItem className="cursor-pointer text-gray-300 hover:bg-gray-800 hover:text-white focus:bg-gray-800 focus:text-white">
+              <DropdownMenuItem onClick={() => router.push('/dashboard/billing')} className="cursor-pointer text-gray-300 hover:bg-gray-800 hover:text-white focus:bg-gray-800 focus:text-white">
                 <CreditCard className="mr-2 h-4 w-4" />
                 <span>Billing and payments</span>
               </DropdownMenuItem>

@@ -379,7 +379,7 @@ export function SellerDashboardHeader({
                 Refer a friend
               </DropdownMenuItem>
               
-              <DropdownMenuItem className="cursor-pointer text-gray-300 hover:bg-gray-800 hover:text-white focus:bg-gray-800 focus:text-white">
+              <DropdownMenuItem onClick={() => router.push('/seller-dashboard/billing')} className="cursor-pointer text-gray-300 hover:bg-gray-800 hover:text-white focus:bg-gray-800 focus:text-white">
                 Billing and payments
               </DropdownMenuItem>
               

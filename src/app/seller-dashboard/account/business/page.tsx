@@ -110,7 +110,6 @@ export default function BusinessPage() {
             <Button
               onClick={handleVerify}
               disabled={submitting}
-              className="bg-white text-black hover:bg-gray-100 cursor-pointer"
             >
               {submitting ? 'Submitting…' : 'Verify'}
             </Button>

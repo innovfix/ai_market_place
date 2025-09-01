@@ -177,7 +177,7 @@ export function HeaderSearchWithSuggestions({
 
   return (
     <div className={cn("relative", className)}>
-      <div className="relative">
+      <div className="flex items-center h-10 bg-gray-800 rounded-lg border border-gray-600 overflow-hidden">
         <input
           ref={inputRef}
           type="text"
@@ -186,11 +186,12 @@ export function HeaderSearchWithSuggestions({
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
           onFocus={() => setShowSuggestions(true)}
-          className="w-full h-10 px-4 pr-12 bg-gray-800 text-white rounded-lg border border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 placeholder:text-gray-400"
+          className="flex-1 h-full px-4 bg-transparent text-white placeholder:text-gray-400 focus:outline-none"
         />
-        <button 
+        <button
           onClick={handleSearch}
-          className="absolute right-1 top-1 bottom-1 px-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-md transition-all duration-200 cursor-pointer"
+          aria-label="Search"
+          className="h-full px-3 flex items-center justify-center bg-gradient-to-r from-[#6b5cff] to-[#9b4cff] hover:from-[#5a3bff] hover:to-[#8a2bff] text-white rounded-r-lg shadow-md transition-all duration-200 cursor-pointer"
         >
           <Search className="h-4 w-4" />
         </button>
