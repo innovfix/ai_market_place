@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="PayPal">
+  <!-- Monochrome PayPal-style 'P' mark (gray) -->
+  <g fill="none" fill-rule="evenodd">
+    <path d="M22.5 8C16.2 8 11 12.9 11 19.2v25.6C11 50.1 16.2 55 22.5 55h11.8c6.1 0 10.9-5.1 10.9-11.5 0-6.4-4.8-11.5-10.9-11.5H34.2c-1.2 0-2.1-.9-2.1-2.1V26c0-1.1.9-2.1 2.1-2.1h18.4c2.6 0 4.7 2.1 4.7 4.7 0 2.6-2.1 4.7-4.7 4.7H49c-1.2 0-2.1.9-2.1 2.1v2.6c0 1.2.9 2.1 2.1 2.1h11.8c9.2 0 16.6-7.6 16.6-17.1C78.5 15.6 71.1 8 61.9 8H22.5z" transform="scale(0.75)" fill="#6B7280"/>
+  </g>
+</svg>

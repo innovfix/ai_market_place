@@ -1,15 +1,74 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+function PaymentMethodsSection() {
+  const [modalOpen, setModalOpen] = React.useState(false);
+  return (
+    <div className="py-8">
+      <h3 className="text-lg font-medium mb-2">Payment methods</h3>
+      <p className="text-gray-400 mb-8">Easily manage your payments methods through our secure system.</p>
+
+      <div className="max-w-xl">
+        <div className="bg-black/80 border border-gray-800 rounded-xl p-6 mb-4">
+          <div
+            className="flex items-center gap-3 mb-6 cursor-pointer"
+            onClick={() => setModalOpen(true)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setModalOpen(true); }}
+          >
+            <span className="text-gray-400 text-2xl font-semibold">P</span>
+            <span className="text-gray-200 text-lg font-medium">PayPal</span>
+          </div>
+          <hr className="border-gray-700 mb-2" />
+          <button
+            className="flex items-center gap-2 text-lg font-semibold py-3 px-4 rounded-lg hover:bg-black/60 transition mt-2 cursor-pointer"
+            style={{ color: '#16a34a' }}
+            onClick={() => setModalOpen(true)}
+            type="button"
+          >
+            <span className="text-2xl leading-none">+</span>
+            <span className="text-base font-semibold">Add a payment method</span>
+          </button>
+        </div>
+      </div>
+      {/* Modal */}
+      {modalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+          <div className="bg-white rounded-xl shadow-2xl p-8 w-full max-w-lg relative">
+            <button
+              className="absolute top-4 right-4 text-2xl text-black hover:text-gray-600"
+              onClick={() => setModalOpen(false)}
+              aria-label="Close"
+            >
+              &times;
+            </button>
+            <h2 className="text-2xl font-bold mb-6 text-black">Add payment method</h2>
+            <div className="bg-white border border-gray-200 rounded-lg p-6">
+              <label className="flex items-center gap-4">
+                <input type="radio" name="payment-method" className="w-5 h-5" />
+                <div className="flex items-center gap-3">
+                  <span className="text-gray-400 text-2xl font-semibold">P</span>
+                  <span className="text-xl font-semibold" style={{ color: '#003087' }}>
+                    <span>Pay</span><span style={{ color: '#009cde' }}>Pal</span>
+                  </span>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+import React, { useMemo, useRef, useEffect } from "react";
+import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 
 export default function BillingPanel() {
   const tabs = ["Billing history", "Billing info", "Balances", "Payment methods"];
-  const [activeTab, setActiveTab] = useState<string>(tabs[0]);
-  const [query, setQuery] = useState("");
-  const [dateRangeOpen] = useState(false);
-  const [documentOpen] = useState(false);
-  const [currencyOpen] = useState(false);
+  const [activeTab, setActiveTab] = React.useState<string>(tabs[0]);
+  const [query, setQuery] = React.useState("");
+  const [dateRangeOpen, setDateRangeOpen] = React.useState(false);
 
   // placeholder empty data
   const invoices: any[] = [];
@@ -32,6 +91,40 @@ export default function BillingPanel() {
     URL.revokeObjectURL(url);
   };
 
+
+  // Document and Currency dropdown state
+  const [documentOpen, setDocumentOpen] = React.useState(false);
+  const [currencyOpen, setCurrencyOpen] = React.useState(false);
+
+  // For closing dropdowns on outside click
+  const dateRangeRef = useRef<HTMLDivElement>(null);
+  const documentRef = useRef<HTMLDivElement>(null);
+  const currencyRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dateRangeRef.current && !dateRangeRef.current.contains(event.target as Node)) {
+        setDateRangeOpen(false);
+      }
+      if (documentRef.current && !documentRef.current.contains(event.target as Node)) {
+        setDocumentOpen(false);
+      }
+      if (currencyRef.current && !currencyRef.current.contains(event.target as Node)) {
+        setCurrencyOpen(false);
+      }
+    }
+    if (dateRangeOpen || documentOpen || currencyOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [dateRangeOpen, documentOpen, currencyOpen]);
+
+  // Date range state
+  const [selectedMonth, setSelectedMonth] = React.useState("");
+  const [fromDate, setFromDate] = React.useState("");
+  const [toDate, setToDate] = React.useState("");
+
   return (
     <div className="bg-black/95 rounded-xl border border-gray-800 p-8 text-white">
       <div className="border-b pb-4 mb-6">
@@ -51,11 +144,131 @@ export default function BillingPanel() {
       {activeTab === "Billing history" && (
         <div>
           <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-3">
-              <button className="px-4 py-2 rounded-lg text-sm text-white bg-gradient-to-r from-[#6b5cff] to-[#9b4cff] hover:from-[#5a3bff] hover:to-[#8a2bff] shadow-md">Date range</button>
-              <button className="px-4 py-2 rounded-lg text-sm text-white bg-gradient-to-r from-[#6b5cff] to-[#9b4cff] hover:from-[#5a3bff] hover:to-[#8a2bff] shadow-md">Document</button>
-              <button className="px-4 py-2 rounded-lg text-sm text-white bg-gradient-to-r from-[#6b5cff] to-[#9b4cff] hover:from-[#5a3bff] hover:to-[#8a2bff] shadow-md">Currency</button>
-            </div>
+
+                <div className="flex items-center gap-3 relative">
+                  {/* Date Range Button & Dropdown */}
+                  <Button
+                    onClick={() => {
+                      setDateRangeOpen((v) => !v);
+                      setDocumentOpen(false);
+                      setCurrencyOpen(false);
+                    }}
+                    className="min-w-[120px]"
+                  >
+                    Date range
+                  </Button>
+                  {dateRangeOpen && (
+                    <div
+                      ref={dateRangeRef}
+                      className="absolute left-0 top-12 z-50 w-[370px] bg-black border border-gray-800 rounded-xl shadow-2xl p-6 text-white flex flex-col gap-4 animate-fade-in"
+                    >
+                      <div className="font-bold text-lg mb-2">Date range</div>
+                      <div>
+                        <label className="block text-sm mb-1 text-gray-300">Select a month</label>
+                        <select
+                          value={selectedMonth}
+                          onChange={e => setSelectedMonth(e.target.value)}
+                          className="w-full bg-black/80 border border-gray-700 rounded px-3 py-2 text-gray-200 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#6b5cff]"
+                        >
+                          <option value="">Select a month</option>
+                          {/* Example months, can be dynamic */}
+                          <option value="2025-09">September 2025</option>
+                          <option value="2025-08">August 2025</option>
+                          <option value="2025-07">July 2025</option>
+                        </select>
+                      </div>
+                      <div className="flex gap-3">
+                        <div className="flex-1">
+                          <label className="block text-sm mb-1 text-gray-300">From</label>
+                          <input
+                            type="date"
+                            value={fromDate}
+                            onChange={e => setFromDate(e.target.value)}
+                            className="w-full bg-black/80 border border-gray-700 rounded px-3 py-2 text-gray-200 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#6b5cff]"
+                          />
+                        </div>
+                        <div className="flex-1">
+                          <label className="block text-sm mb-1 text-gray-300">To</label>
+                          <input
+                            type="date"
+                            value={toDate}
+                            onChange={e => setToDate(e.target.value)}
+                            className="w-full bg-black/80 border border-gray-700 rounded px-3 py-2 text-gray-200 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-[#6b5cff]"
+                          />
+                        </div>
+                      </div>
+                      <div className="flex justify-end pt-2">
+                        <Button
+                          className="w-28"
+                          onClick={() => setDateRangeOpen(false)}
+                          type="button"
+                        >
+                          Apply
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Document Button & Dropdown */}
+                  <Button
+                    onClick={() => {
+                      setDocumentOpen((v) => !v);
+                      setDateRangeOpen(false);
+                      setCurrencyOpen(false);
+                    }}
+                    className="min-w-[120px]"
+                  >
+                    Document
+                  </Button>
+                  {documentOpen && (
+                    <div
+                      ref={documentRef}
+                      className="absolute left-[130px] top-12 z-50 w-[300px] bg-black border border-gray-800 rounded-xl shadow-2xl p-6 text-white flex flex-col gap-4 animate-fade-in"
+                    >
+                      <div className="font-bold text-lg mb-2">Document</div>
+                      {/* Add any document filter fields here if needed */}
+                      <div className="flex justify-end pt-2">
+                        <Button
+                          className="w-28"
+                          onClick={() => setDocumentOpen(false)}
+                          type="button"
+                        >
+                          Apply
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Currency Button & Dropdown */}
+                  <Button
+                    onClick={() => {
+                      setCurrencyOpen((v) => !v);
+                      setDateRangeOpen(false);
+                      setDocumentOpen(false);
+                    }}
+                    className="min-w-[120px]"
+                  >
+                    Currency
+                  </Button>
+                  {currencyOpen && (
+                    <div
+                      ref={currencyRef}
+                      className="absolute left-[260px] top-12 z-50 w-[300px] bg-black border border-gray-800 rounded-xl shadow-2xl p-6 text-white flex flex-col gap-4 animate-fade-in"
+                    >
+                      <div className="font-bold text-lg mb-2">Currency</div>
+                      {/* Add any currency filter fields here if needed */}
+                      <div className="flex justify-end pt-2">
+                        <Button
+                          className="w-28"
+                          onClick={() => setCurrencyOpen(false)}
+                          type="button"
+                        >
+                          Apply
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+                </div>
 
             <div className="flex items-center gap-4">
       <div className="w-96">
@@ -98,7 +311,12 @@ export default function BillingPanel() {
                           {/* image removed per request */}
                           <h3 className="text-2xl font-semibold mb-3 text-white">No invoices yet...</h3>
                           <p className="text-gray-400 mb-6">Ready to place an order? Make sure <a href="#" className="underline text-gray-300">your billing info</a> is up to date.</p>
-                          <button className="px-5 py-2 rounded-lg text-white bg-gradient-to-r from-[#6b5cff] to-[#9b4cff] hover:from-[#5a3bff] hover:to-[#8a2bff] shadow-md">Explore</button>
+                          <a
+                            href="/dashboard"
+                            className="px-5 py-2 rounded-lg text-white bg-gradient-to-r from-[#6b5cff] to-[#9b4cff] hover:from-[#5a3bff] hover:to-[#8a2bff] shadow-md text-center inline-block"
+                          >
+                            Explore
+                          </a>
                         </div>
                       </td>
                     </tr>
@@ -253,10 +471,7 @@ export default function BillingPanel() {
       )}
 
       {activeTab === "Payment methods" && (
-        <div className="py-8">
-          <h3 className="text-lg font-medium mb-2">Payment methods</h3>
-          <p className="text-gray-600">Add or remove payment methods used for purchases and payouts.</p>
-        </div>
+        <PaymentMethodsSection />
       )}
     </div>
   );

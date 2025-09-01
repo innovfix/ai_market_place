@@ -255,15 +255,7 @@ export function LoggedInHeader({
               
               <DropdownMenuSeparator className="bg-gray-700" />
               
-              <DropdownMenuItem className="cursor-pointer text-gray-300 hover:bg-gray-800 hover:text-white focus:bg-gray-800 focus:text-white">
-                <div className="flex items-center justify-between w-full">
-                  <div className="flex items-center">
-                    <Crown className="mr-2 h-4 w-4" />
-                    <span>Exclusive features</span>
-                  </div>
-                  <span className="text-xs bg-purple-600 text-white px-2 py-1 rounded-full">AI Market Pro</span>
-                </div>
-              </DropdownMenuItem>
+              
               
               <DropdownMenuItem className="cursor-pointer text-gray-300 hover:bg-gray-800 hover:text-white focus:bg-gray-800 focus:text-white">
                 <Users className="mr-2 h-4 w-4" />
@@ -341,6 +333,8 @@ export function LoggedInHeader({
               </DialogFooter>
             </DialogContent>
           </Dialog>
+
+          
 
           {/* Currency Dialog */}
           <Dialog open={currencyOpen} onOpenChange={setCurrencyOpen}>
