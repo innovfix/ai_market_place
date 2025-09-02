@@ -89,7 +89,7 @@ export function SellerDashboardHeader({
         <div className="flex items-center gap-8">
           <Link href="/dashboard" className="flex items-center gap-3 group cursor-pointer">
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg blur-sm opacity-75 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg blur-xl opacity-90 group-hover:opacity-100 transition-opacity duration-300"></div>
               <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden className="relative z-10 text-white">
                 <path fill="currentColor" d="M12 2l9 16H3L12 2z" />
               </svg>

@@ -150,7 +150,10 @@ export default function ProfilePage() {
             </Card>
 
             <Button 
-              onClick={() => setShowPreview(true)}
+              onClick={() => {
+                const newWindow = window.open('/dashboard/preview', '_blank');
+                if (newWindow) newWindow.opener = null;
+              }}
               className="w-full mb-4 bg-gray-800 hover:bg-gray-700 text-white border border-gray-600 cursor-pointer"
             >
               <Eye className="w-4 h-4 mr-2" />

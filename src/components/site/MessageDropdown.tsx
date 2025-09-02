@@ -88,6 +88,7 @@ export function MessageDropdown() {
         ref={buttonRef}
         onClick={() => setIsOpen(!isOpen)}
         className="p-2 text-white hover:text-blue-200 transition-colors cursor-pointer"
+        aria-label="Messages"
       >
         <Mail className="h-5 w-5" />
       </button>
