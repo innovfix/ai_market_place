@@ -156,7 +156,7 @@ export default function SellerDashboardPage() {
               </div>
             </div>
 
-            {/* Notification Cards */}
+            {/* Notification Cards */} 
             <div className="space-y-4">
               {/* Seller Plus Kickstart */}
               <Card className="bg-gray-900 border-gray-700 p-6 relative">

@@ -1,104 +1,68 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
-import { XIcon, Send, ChevronLeft } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { X, MessageSquare } from "lucide-react";
 
-interface ChatWidgetProps {
-  name?: string;
-  avatarUrl?: string;
-  status?: string;
-  subtitle?: string;
-  quickPrompts?: string[];
-  isOpen?: boolean;
-  onOpenChange?: (open: boolean) => void;
-}
-
-export function ChatWidget({
-  name = "Support",
-  avatarUrl,
-  status = "Online",
-  subtitle = "Avg. response time: 2 Hrs",
-  quickPrompts = [
-    "Hey, I'm looking for an AI agent to automate…",
-    "Can you share pricing/licensing details?",
-    "Do you support self-hosted models?",
-  ],
-  isOpen = false,
-  onOpenChange,
-}: ChatWidgetProps) {
-  const [internalOpen, setInternalOpen] = useState(false);
-  const [message, setMessage] = useState("");
-  
-  // Use external control if provided, otherwise use internal state
-  const open = onOpenChange ? isOpen : internalOpen;
-  const setOpen = onOpenChange ? onOpenChange : setInternalOpen;
+export function ChatWidget() {
+  const [open, setOpen] = useState(false);
+  const [conversationOpen, setConversationOpen] = useState(false);
+  const [selectedRole, setSelectedRole] = useState<string | null>(null);
 
   return (
-    <div className="fixed right-4 bottom-4 z-50">
-      {!open && (
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          className="flex items-center gap-3 rounded-full border bg-background/90 px-2 py-2 sm:px-4 shadow-md backdrop-blur"
-        >
-          <div className="relative h-9 w-9 overflow-hidden rounded-full bg-secondary">
-            {avatarUrl ? <Image src={avatarUrl} alt={name} fill className="object-cover" /> : null}
-          </div>
-          <div className="mr-1 text-left hidden sm:block">
-            <div className="text-sm font-medium">Message {name}</div>
-            <div className="text-xs text-muted-foreground">{status} • {subtitle}</div>
-          </div>
-        </button>
-      )}
+    <div>
+      {/* Floating button */}
+      <div className="fixed right-6 bottom-6 z-50 flex items-end">
+        <div className="flex flex-col items-end gap-3">
+          {open && (
+            <div className="w-80 max-w-xs bg-black text-white rounded-lg shadow-lg overflow-hidden">
+              <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-blue-800 to-purple-800 text-white">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center">
+                    <MessageSquare className="w-4 h-4" />
+                  </div>
+                  <div className="font-medium">AI Market Support</div>
+                </div>
+                <button aria-label="close" onClick={() => setOpen(false)} className="p-1 rounded hover:bg-white/10">
+                  <X className="w-4 h-4 text-white" />
+                </button>
+              </div>
 
-      {open ? (
-        <div className="fixed right-4 bottom-20 w-[min(96vw,380px)] h-[70vh] rounded-[10px] border bg-background shadow-xl">
-          <div className="flex items-center justify-between border-b px-4 py-3">
-            <div className="flex items-center gap-3">
-              <button className="rounded-full border p-1 sm:hidden" onClick={() => setOpen(false)}>
-                <ChevronLeft className="h-4 w-4" />
-              </button>
-              <div className="relative h-9 w-9 overflow-hidden rounded-full bg-secondary">
-                {avatarUrl ? <Image src={avatarUrl} alt={name} fill className="object-cover" /> : null}
-              </div>
-              <div>
-                <div className="text-sm font-medium">Message {name}</div>
-                <div className="text-xs text-muted-foreground">{status} • {subtitle}</div>
-              </div>
+              {!conversationOpen ? (
+                <div className="p-4">
+                  <p className="text-sm text-gray-300 mb-3">Hi there — how can we help you today?</p>
+                  <div className="space-y-2">
+                    <button onClick={() => { setSelectedRole('seller'); setConversationOpen(true); }} className="w-full text-left px-3 py-2 rounded-full border border-gray-700 hover:bg-gray-900 text-white">I need help as a freelancer (seller)</button>
+                    <button onClick={() => { setSelectedRole('buyer'); setConversationOpen(true); }} className="w-full text-left px-3 py-2 rounded-full border border-gray-700 hover:bg-gray-900 text-white">I need help as a client (buyer)</button>
+                  </div>
+                </div>
+              ) : (
+                <div className="p-4">
+                  <div className="rounded-lg bg-gray-900 p-3 text-sm text-white mb-3">You selected: <strong>{selectedRole === 'seller' ? 'Freelancer (seller)' : 'Client (buyer)'}</strong></div>
+                  <div className="h-40 overflow-y-auto text-sm text-gray-300 mb-3">This is a placeholder chat area. Implement your chat integration here to allow messaging without leaving the page.</div>
+                  <div className="flex items-center gap-2">
+                    <input placeholder="Type a message" className="flex-1 h-9 rounded-md border border-gray-700 bg-[#060606] px-3 text-sm text-white" />
+                    <button className="px-3 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full">Send</button>
+                  </div>
+                </div>
+              )}
             </div>
-            <button className="rounded-[10px] p-1 text-muted-foreground hover:bg-secondary" onClick={() => setOpen(false)}>
-              <XIcon className="h-4 w-4" />
-            </button>
-          </div>
+          )}
 
-          <div className="flex h-[calc(100%-56px)] flex-col">
-            <div className="flex-1 overflow-y-auto p-4">
-              <div className="mb-3 text-xs text-muted-foreground">
-                Ask a question or share your project details (requirements, timeline, budget, etc.).
-              </div>
-              <div className="space-y-2">
-                {quickPrompts.map((q) => (
-                  <button key={q} onClick={() => setMessage(q)} className="w-full rounded-[10px] border px-3 py-2 text-left text-sm hover:bg-secondary">
-                    {q}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="border-t p-3">
-              <div className="flex items-center gap-2">
-                <Input placeholder="Type your message…" value={message} onChange={(e) => setMessage(e.target.value)} className="h-12 flex-1" />
-                <Button className="h-12 px-4" onClick={() => setMessage("")}> <Send className="mr-2 h-4 w-4" /> Send </Button>
-              </div>
-            </div>
-          </div>
+          {/* Floating icon button */}
+          <button
+            onClick={() => setOpen((s) => !s)}
+            aria-label="Open chat"
+            className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 shadow-lg flex items-center justify-center text-white border-2 border-white/20 cursor-pointer"
+          >
+            {/* Triangle icon similar to site logo */}
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
+              <path d="M12 3l9 16H3L12 3z" fill="white" />
+            </svg>
+          </button>
         </div>
-      ) : null}
+      </div>
     </div>
   );
 }
 
-
+export default ChatWidget;

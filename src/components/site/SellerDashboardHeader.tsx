@@ -34,7 +34,7 @@ export function SellerDashboardHeader({
   userAvatar = "/profile1.jpeg",
   notificationCount = 1 
 }: SellerDashboardHeaderProps) {
-  const [helpDropdownOpen, setHelpDropdownOpen] = useState(false);
+  
   const [languageOpen, setLanguageOpen] = useState(false);
   const [currencyOpen, setCurrencyOpen] = useState(false);
   const [language, setLanguage] = useState<string>("English");
@@ -46,13 +46,9 @@ export function SellerDashboardHeader({
     { code: "EUR", symbol: "€", name: "Euro" },
   ];
   const [businessDropdownOpen, setBusinessDropdownOpen] = useState(false);
-  const [marketingDropdownOpen, setMarketingDropdownOpen] = useState(false);
-  const [analyticsDropdownOpen, setAnalyticsDropdownOpen] = useState(false);
   const router = useRouter();
-  const helpRef = useRef<HTMLDivElement>(null);
+  
   const businessRef = useRef<HTMLDivElement>(null);
-  const marketingRef = useRef<HTMLDivElement>(null);
-  const analyticsRef = useRef<HTMLDivElement>(null);
 
   const handleLogout = () => {
     // In a real app, this would clear authentication tokens/sessions
@@ -62,17 +58,8 @@ export function SellerDashboardHeader({
   // Close dropdowns when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (helpRef.current && !helpRef.current.contains(event.target as Node)) {
-        setHelpDropdownOpen(false);
-      }
       if (businessRef.current && !businessRef.current.contains(event.target as Node)) {
         setBusinessDropdownOpen(false);
-      }
-      if (marketingRef.current && !marketingRef.current.contains(event.target as Node)) {
-        setMarketingDropdownOpen(false);
-      }
-      if (analyticsRef.current && !analyticsRef.current.contains(event.target as Node)) {
-        setAnalyticsDropdownOpen(false);
       }
     }
 
@@ -115,145 +102,57 @@ export function SellerDashboardHeader({
               {businessDropdownOpen && (
                 <div className="absolute top-full left-0 mt-2 w-48 bg-black border border-gray-700 rounded-lg shadow-xl z-50">
                   <div className="py-2">
-                    <button 
+                    <button
                       onClick={() => {
+                        setBusinessDropdownOpen(false);
+                        router.push('/dashboard/orders');
+                      }}
+                      className="w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer"
+                    >
+                      Orders
+                    </button>
+                    <button
+                      onClick={() => {
+                        setBusinessDropdownOpen(false);
                         router.push('/dashboard/manage-agents');
-                        setBusinessDropdownOpen(false);
                       }}
                       className="w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer"
                     >
-                      Manage Agents
+                      Agents
                     </button>
-                    <button 
+                    <button
                       onClick={() => {
-                        router.push('/dashboard/create-agent');
                         setBusinessDropdownOpen(false);
+                        router.push('/dashboard/inbox');
                       }}
                       className="w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer"
                     >
-                      Create New Agent
+                      Messages
                     </button>
-                    <button 
+                    <button
                       onClick={() => {
+                        setBusinessDropdownOpen(false);
                         router.push('/dashboard/profile');
+                      }}
+                      className="w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer"
+                    >
+                      Profile
+                    </button>
+                    <button
+                      onClick={() => {
                         setBusinessDropdownOpen(false);
+                        router.push(`/users/${encodeURIComponent(userName)}/earnings`);
                       }}
                       className="w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer"
                     >
-                      Profile Settings
+                      Earnings
                     </button>
                   </div>
                 </div>
               )}
             </div>
 
-            {/* Growth & Marketing */}
-            <div className="relative" ref={marketingRef}>
-              <button
-                onClick={() => setMarketingDropdownOpen(!marketingDropdownOpen)}
-                className="flex items-center text-white hover:text-blue-200 transition-colors cursor-pointer"
-              >
-                Growth & Marketing
-                <ChevronDown className="w-4 h-4 ml-1" />
-              </button>
-              
-              {marketingDropdownOpen && (
-                <div className="absolute top-full left-0 mt-2 w-56 bg-black border border-gray-700 rounded-lg shadow-xl z-50">
-                  <div className="py-2">
-                    <button 
-                      onClick={() => {
-                        router.push('/dashboard/promotions');
-                        setMarketingDropdownOpen(false);
-                      }}
-                      className="w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer"
-                    >
-                      Promote Your Agents
-                    </button>
-                    <button 
-                      onClick={() => {
-                        router.push('/dashboard/marketing-tools');
-                        setMarketingDropdownOpen(false);
-                      }}
-                      className="w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer"
-                    >
-                      Marketing Tools
-                    </button>
-                    <button 
-                      onClick={() => {
-                        router.push('/dashboard/seo-optimization');
-                        setMarketingDropdownOpen(false);
-                      }}
-                      className="w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer"
-                    >
-                      SEO Optimization
-                    </button>
-                    <button 
-                      onClick={() => {
-                        router.push('/dashboard/buyer-requests');
-                        setMarketingDropdownOpen(false);
-                      }}
-                      className="w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer"
-                    >
-                      Buyer Requests
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Analytics */}
-            <div className="relative" ref={analyticsRef}>
-              <button
-                onClick={() => setAnalyticsDropdownOpen(!analyticsDropdownOpen)}
-                className="flex items-center text-white hover:text-blue-200 transition-colors cursor-pointer"
-              >
-                Analytics
-                <ChevronDown className="w-4 h-4 ml-1" />
-              </button>
-              
-              {analyticsDropdownOpen && (
-                <div className="absolute top-full left-0 mt-2 w-48 bg-black border border-gray-700 rounded-lg shadow-xl z-50">
-                  <div className="py-2">
-                    <button 
-                      onClick={() => {
-                        router.push('/dashboard/analytics/overview');
-                        setAnalyticsDropdownOpen(false);
-                      }}
-                      className="w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer"
-                    >
-                      Overview
-                    </button>
-                    <button 
-                      onClick={() => {
-                        router.push('/dashboard/analytics/performance');
-                        setAnalyticsDropdownOpen(false);
-                      }}
-                      className="w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer"
-                    >
-                      Performance
-                    </button>
-                    <button 
-                      onClick={() => {
-                        router.push('/dashboard/analytics/revenue');
-                        setAnalyticsDropdownOpen(false);
-                      }}
-                      className="w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer"
-                    >
-                      Revenue
-                    </button>
-                    <button 
-                      onClick={() => {
-                        router.push('/dashboard/analytics/traffic');
-                        setAnalyticsDropdownOpen(false);
-                      }}
-                      className="w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer"
-                    >
-                      Traffic Sources
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
+            
           </nav>
         </div>
 
@@ -265,69 +164,14 @@ export function SellerDashboardHeader({
           {/* Messages */}
           <MessageDropdown />
 
-          {/* Help */}
-          <div className="relative" ref={helpRef}>
-            <button 
-              onClick={() => setHelpDropdownOpen(!helpDropdownOpen)}
+          {/* Help (goes to help page) */}
+          <div>
+            <button
+              onClick={() => router.push('/help-center')}
               className="p-2 text-white hover:text-blue-200 transition-colors cursor-pointer"
             >
               <HelpCircle className="h-5 w-5" />
             </button>
-
-            {helpDropdownOpen && (
-              <div className="absolute top-full right-0 mt-2 w-56 bg-black border border-gray-700 rounded-lg shadow-xl z-50">
-                <div className="py-2">
-                  <button 
-                    onClick={() => {
-                      router.push('/help-center');
-                      setHelpDropdownOpen(false);
-                    }}
-                    className="w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer"
-                  >
-                    Help Center
-                  </button>
-                  <button 
-                    onClick={() => {
-                      router.push('/fiverr-forum');
-                      setHelpDropdownOpen(false);
-                    }}
-                    className="w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer"
-                  >
-                    AI Market Forum
-                  </button>
-                  <button 
-                    onClick={() => {
-                      router.push('/fiverr-blog');
-                      setHelpDropdownOpen(false);
-                    }}
-                    className="w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer"
-                  >
-                    AI Market Blog
-                  </button>
-                  
-                  <div className="border-t border-gray-700 my-2"></div>
-                  
-                  <button 
-                    onClick={() => {
-                      router.push('/ask-community');
-                      setHelpDropdownOpen(false);
-                    }}
-                    className="w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer"
-                  >
-                    Ask the Community
-                  </button>
-                  <button 
-                    onClick={() => {
-                      router.push('/contact-support');
-                      setHelpDropdownOpen(false);
-                    }}
-                    className="w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer"
-                  >
-                    Contact Support
-                  </button>
-                </div>
-              </div>
-            )}
           </div>
 
           {/* Profile Dropdown */}

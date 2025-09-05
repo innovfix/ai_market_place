@@ -145,7 +145,8 @@ export function LoggedInHeader({
                 <div className="py-2">
                   <button 
                     onClick={() => {
-                      router.push('/help-center');
+                      // open help center in a new tab
+                      window.open('/help-center', '_blank');
                       setHelpDropdownOpen(false);
                     }}
                     className="w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer"
@@ -175,7 +176,7 @@ export function LoggedInHeader({
                   
                   <button 
                     onClick={() => {
-                      router.push('/ask-community');
+                      window.open('/ask-community', '_blank');
                       setHelpDropdownOpen(false);
                     }}
                     className="w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer"
@@ -184,7 +185,7 @@ export function LoggedInHeader({
                   </button>
                   <button 
                     onClick={() => {
-                      router.push('/contact-support');
+                      window.open('/contact-support', '_blank');
                       setHelpDropdownOpen(false);
                     }}
                     className="w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer"
@@ -281,7 +282,7 @@ export function LoggedInHeader({
                 </div>
               </DropdownMenuItem>
               
-              <DropdownMenuItem className="cursor-pointer text-gray-300 hover:bg-gray-800 hover:text-white focus:bg-gray-800 focus:text-white">
+              <DropdownMenuItem onClick={() => window.open('/help-center', '_blank')} className="cursor-pointer text-gray-300 hover:bg-gray-800 hover:text-white focus:bg-gray-800 focus:text-white">
                 <HelpCircle className="mr-2 h-4 w-4" />
                 <span>Help & support</span>
               </DropdownMenuItem>

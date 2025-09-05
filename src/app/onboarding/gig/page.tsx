@@ -4,7 +4,7 @@ import { useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { SellerTopNav } from "@/components/site/SellerTopNav";
 
-export default function CreateGigPage() {
+export function CreateGigContent({ includeTopNav = true, seller = "Tecsxa" }: { includeTopNav?: boolean; seller?: string }) {
   const [step, setStep] = useState(1);
   const pricingRef = useRef<HTMLDivElement | null>(null);
   const [title, setTitle] = useState("");
@@ -76,7 +76,7 @@ export default function CreateGigPage() {
 
   return (
     <div>
-      <SellerTopNav seller="Tecsxa" />
+      {includeTopNav ? <SellerTopNav seller={seller} /> : null}
 
       <div className="container mx-auto max-w-5xl px-4 py-8 md:py-10">
       {/* Steps header */}
@@ -433,6 +433,10 @@ export default function CreateGigPage() {
       </div>
       </div>
   );
+}
+
+export default function CreateGigPage() {
+  return <CreateGigContent includeTopNav={true} seller="Tecsxa" />;
 }
 
 function Step({ n, label, active }: { n: number; label: string; active?: boolean }) {

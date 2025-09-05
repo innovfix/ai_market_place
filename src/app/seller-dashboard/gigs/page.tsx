@@ -37,8 +37,8 @@ export default function SellerGigsPage() {
             </div>
             <Button disabled={!accepting} className={accepting ? "bg-gradient-to-r from-[#2b8dfd] to-[#b84bff] text-white" : "bg-white/5 text-white/50 opacity-50 cursor-not-allowed"} onClick={() => {
               if (accepting) {
-                // navigate to onboarding gig page
-                window.location.href = '/onboarding/gig';
+                // navigate to seller-dashboard gigs create route
+                window.location.href = '/seller-dashboard/gigs/create';
               }
             }}>CREATE A NEW GIG</Button>
           </div>
