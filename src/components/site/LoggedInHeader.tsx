@@ -54,7 +54,6 @@ export function LoggedInHeader({
   notificationCount = 1 
 }: LoggedInHeaderProps) {
   const [searchQuery, setSearchQuery] = useState("");
-  const [helpDropdownOpen, setHelpDropdownOpen] = useState(false);
   const [languageOpen, setLanguageOpen] = useState(false);
   const [currencyOpen, setCurrencyOpen] = useState(false);
   const [language, setLanguage] = useState<string>("English");
@@ -66,26 +65,13 @@ export function LoggedInHeader({
     { code: "EUR", symbol: "€", name: "Euro" },
   ];
   const router = useRouter();
-  const helpRef = useRef<HTMLDivElement>(null);
 
   const handleLogout = () => {
     // In a real app, this would clear authentication tokens/sessions
     router.push('/');
   };
 
-  // Close help dropdown when clicking outside
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (helpRef.current && !helpRef.current.contains(event.target as Node)) {
-        setHelpDropdownOpen(false);
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
+  // No help dropdown: clicking the help icon navigates directly to the help center
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-gradient-to-r from-blue-950/90 via-purple-950/80 to-indigo-950/90 backdrop-blur-xl supports-[backdrop-filter]:bg-gradient-to-r from-blue-950/70 via-purple-950/60 to-indigo-950/70">
@@ -131,70 +117,14 @@ export function LoggedInHeader({
           {/* Orders */}
           <OrdersDropdown />
 
-          {/* Help */}
-          <div className="relative" ref={helpRef}>
-            <button 
-              onClick={() => setHelpDropdownOpen(!helpDropdownOpen)}
+          {/* Help: navigate directly to the help center */}
+          <div>
+            <button
+              onClick={() => window.open('/help-center', '_blank')}
               className="p-2 text-white hover:text-blue-200 transition-colors cursor-pointer"
             >
               <HelpCircle className="h-5 w-5" />
             </button>
-
-            {helpDropdownOpen && (
-              <div className="absolute top-full right-0 mt-2 w-56 bg-black border border-gray-700 rounded-lg shadow-xl z-50">
-                <div className="py-2">
-                  <button 
-                    onClick={() => {
-                      // open help center in a new tab
-                      window.open('/help-center', '_blank');
-                      setHelpDropdownOpen(false);
-                    }}
-                    className="w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer"
-                  >
-                    Help Center
-                  </button>
-                  <button 
-                    onClick={() => {
-                      router.push('/fiverr-forum');
-                      setHelpDropdownOpen(false);
-                    }}
-                    className="w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer"
-                  >
-                    AI Market Forum
-                  </button>
-                  <button 
-                    onClick={() => {
-                      router.push('/fiverr-blog');
-                      setHelpDropdownOpen(false);
-                    }}
-                    className="w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer"
-                  >
-                    AI Market Blog
-                  </button>
-                  
-                  <div className="border-t border-gray-700 my-2"></div>
-                  
-                  <button 
-                    onClick={() => {
-                      window.open('/ask-community', '_blank');
-                      setHelpDropdownOpen(false);
-                    }}
-                    className="w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer"
-                  >
-                    Ask the Community
-                  </button>
-                  <button 
-                    onClick={() => {
-                      window.open('/contact-support', '_blank');
-                      setHelpDropdownOpen(false);
-                    }}
-                    className="w-full text-left px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white cursor-pointer"
-                  >
-                    Contact Support
-                  </button>
-                </div>
-              </div>
-            )}
           </div>
 
           {/* Switch to Selling */}
